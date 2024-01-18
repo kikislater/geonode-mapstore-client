@@ -76,7 +76,6 @@ import {
     ProcessTypes,
     ProcessStatus
 } from '@js/utils/ResourceServiceUtils';
-import { setControlProperty } from '@mapstore/framework/actions/controls';
 
 function parseMapBody(body) {
     const geoNodeMap = toGeoNodeMapConfig(body.data);
@@ -119,6 +118,17 @@ const SaveAPI = {
     },
     [ResourceTypes.DATASET]: (state, id, body) => {
         return id ? updateDataset(id, body) : false;
+    },
+    [ResourceTypes.VIEWER]: (state, id, body) => {
+        const user = userSelector(state);
+        return id
+            ? updateGeoApp(id, body)
+            : createGeoApp({
+                'name': body.title + ' ' + uuid(),
+                'owner': user.name,
+                'resource_type': ResourceTypes.VIEWER,
+                ...body
+            });
     }
 };
 
@@ -144,8 +154,6 @@ export const gnSaveContent = (action$, store) =>
                         return Observable.empty();
                     }
                     return Observable.of(
-                        // reset all pending changes from localStore
-                        setControlProperty('pendingChanges', 'value', null),
                         saveSuccess(resource),
                         setResource({
                             ...currentResource,

@@ -1,0 +1,32 @@
+{
+  "plugins": [
+    {
+      "name": "Map",
+      "glyph": "1-map",
+      "mandatory": true,
+      "defaultConfig": {
+        "mapOptions": {
+          "openlayers": {
+            "interactions": {
+              "pinchRotate": false,
+              "altShiftDragRotate": false
+            },
+            "attribution": {
+              "container": "#footer-attribution-container"
+            }
+          },
+          "leaflet": {
+            "attribution": {
+              "container": "#footer-attribution-container"
+            }
+          }
+        },
+        "toolsOptions": {
+          "scalebar": {
+            "container": "#footer-scalebar-container"
+          }
+        }
+      }
+    }
+  ]
+}

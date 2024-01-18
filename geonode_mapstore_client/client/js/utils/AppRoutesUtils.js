@@ -149,6 +149,17 @@ export const CATALOGUE_ROUTES = [
         shouldNotRequestResources: true
     },
     {
+        name: 'viewer',
+        path: [
+            '/viewer/:pk'
+        ],
+        pageConfig: {
+            resourceType: ResourceTypes.VIEWER
+        },
+        component: appRouteComponentTypes.VIEWER,
+        shouldNotRequestResources: true
+    },
+    {
         name: 'catalogue',
         path: [
             '/',

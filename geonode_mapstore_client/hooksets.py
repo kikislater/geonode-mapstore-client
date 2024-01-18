@@ -23,7 +23,10 @@ def resource_list_url(resource_type):
 
 
 def resource_detail_url(resource_type, resource_id):
-    return "/catalogue/#/{}/{}".format(resource_type, resource_id)
+    _resource_type = resource_type
+    if resource_type == "mapviewer":
+        _resource_type = "viewer"
+    return "/catalogue/#/{}/{}".format(_resource_type, resource_id)
 
 
 class MapStoreHookSet(BaseHookSet):

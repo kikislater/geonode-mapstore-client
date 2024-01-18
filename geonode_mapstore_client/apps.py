@@ -31,11 +31,11 @@ def run_setup_hooks(*args, **kwargs):
         "default": OWNER_PERMISSIONS,
         groups_settings.REGISTERED_MEMBERS_GROUP_NAME: OWNER_PERMISSIONS,
     }
-    setattr(settings, "CLIENT_APP_LIST", ["geostory", "dashboard"])
+    setattr(settings, "CLIENT_APP_LIST", ["geostory", "dashboard", "mapviewer"])
     setattr(
         settings,
         "CLIENT_APP_ALLOWED_PERMS_LIST",
-        [{"geostory": allowed_perms}, {"dashboard": allowed_perms}],
+        [{"geostory": allowed_perms}, {"dashboard": allowed_perms}, {"mapviewer": allowed_perms}],
     )
     setattr(
         settings,
@@ -50,6 +50,14 @@ def run_setup_hooks(*args, **kwargs):
                 "owner": _("Owner"),
             },
             "dashboard": {
+                "none": _("None"),
+                "view": _("View"),
+                "download": _("Download"),
+                "edit": _("Edit"),
+                "manage": _("Manage"),
+                "owner": _("Owner"),
+            },
+            "mapviewer": {
                 "none": _("None"),
                 "view": _("View"),
                 "download": _("Download"),
@@ -84,6 +92,7 @@ def run_setup_hooks(*args, **kwargs):
         **{
             "geostory": settings.DEFAULT_EXTRA_METADATA_SCHEMA,
             "dashboard": settings.DEFAULT_EXTRA_METADATA_SCHEMA,
+            "mapviewer": settings.DEFAULT_EXTRA_METADATA_SCHEMA,
         },
     }
 

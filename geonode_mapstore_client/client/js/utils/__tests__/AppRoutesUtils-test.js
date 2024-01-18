@@ -77,19 +77,22 @@ describe('Test App Routes Utils', () => {
         expect(catalogueRoutes[6].path).toEqual(['/dashboard/:pk']);
         expect(catalogueRoutes[6].name).toEqual('dashboard_viewer');
         expect(catalogueRoutes[6].shouldNotRequestResources).toEqual(true);
-        expect(catalogueRoutes[7].path).toEqual([
+        expect(catalogueRoutes[7].path).toEqual(['/viewer/:pk']);
+        expect(catalogueRoutes[7].name).toEqual('viewer');
+        expect(catalogueRoutes[7].shouldNotRequestResources).toEqual(true);
+        expect(catalogueRoutes[8].path).toEqual([
             '/',
             '/search/',
             '/search/filter',
             '/detail/:pk',
             '/detail/:ctype/:pk'
         ]);
-        expect(catalogueRoutes[7].name).toEqual('catalogue');
-        expect(catalogueRoutes[8].path).toEqual(['/upload/dataset']);
-        expect(catalogueRoutes[8].name).toEqual('upload_dataset');
-        expect(catalogueRoutes[8].shouldNotRequestResources).toEqual(true);
-        expect(catalogueRoutes[9].path).toEqual(['/upload/document']);
-        expect(catalogueRoutes[9].name).toEqual('upload_document');
+        expect(catalogueRoutes[8].name).toEqual('catalogue');
+        expect(catalogueRoutes[9].path).toEqual(['/upload/dataset']);
+        expect(catalogueRoutes[9].name).toEqual('upload_dataset');
         expect(catalogueRoutes[9].shouldNotRequestResources).toEqual(true);
+        expect(catalogueRoutes[10].path).toEqual(['/upload/document']);
+        expect(catalogueRoutes[10].name).toEqual('upload_document');
+        expect(catalogueRoutes[10].shouldNotRequestResources).toEqual(true);
     });
 });

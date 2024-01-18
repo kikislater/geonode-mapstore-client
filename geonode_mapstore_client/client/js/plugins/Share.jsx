@@ -31,9 +31,21 @@ import {
 import { updateResourceCompactPermissions } from '@js/actions/gnresource';
 import Permissions from '@js/components/Permissions';
 import { getUsers, getGroups, getResourceTypes } from '@js/api/geonode/v2';
-import { resourceToPermissionEntry, availableResourceTypes, getResourcePermissions, cleanUrl, getDownloadUrlInfo } from '@js/utils/ResourceUtils';
+import {
+    resourceToPermissionEntry,
+    availableResourceTypes,
+    getResourcePermissions,
+    cleanUrl,
+    getDownloadUrlInfo,
+    getResourceTypesInfo
+} from '@js/utils/ResourceUtils';
 import SharePageLink from '@js/plugins/share/SharePageLink';
 import { getCurrentResourcePermissionsLoading } from '@js/selectors/resourceservice';
+
+const getEmbedUrl = (resource) => {
+    const { formatEmbedUrl = (_resource) => _resource?.embed_url  } = getResourceTypesInfo()[resource?.resource_type] || {};
+    return formatEmbedUrl(resource);
+};
 
 const entriesTabs = [
     {
@@ -141,7 +153,7 @@ function Share({
                 </div>
                 <div className="gn-share-panel-body">
                     <SharePageLink url={pageUrl} label={<Message msgId="gnviewer.thisPage" />} />
-                    <SharePageLink url={embedUrl} label={<Message msgId={`gnviewer.embed${resourceType}`} />} />
+                    {embedUrl && <SharePageLink url={embedUrl} label={<Message msgId={`gnviewer.embed${resourceType}`} />} />}
                     {(resourceType === 'document' && !!downloadUrl) && <SharePageLink url={downloadUrl} label={<Message msgId={`gnviewer.directLink`} />} />}
                     {canEdit && <>
                         <Permissions
@@ -190,7 +202,7 @@ const SharePlugin = connect(
         layers,
         canEdit,
         permissionsLoading,
-        embedUrl: resource?.embed_url,
+        embedUrl: getEmbedUrl(resource),
         resourceType: type,
         downloadUrl: getDownloadUrlInfo(resource)?.url
     })),

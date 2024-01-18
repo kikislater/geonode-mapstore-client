@@ -21,7 +21,8 @@ import { SET_CONTROL_PROPERTY } from '@mapstore/framework/actions/controls';
 import {
     RESET_GEO_LIMITS,
     SET_RESOURCE,
-    SET_SELECTED_DATASET_PERMISSIONS
+    SET_SELECTED_DATASET_PERMISSIONS,
+    UPDATE_SINGLE_RESOURCE
 } from '@js/actions/gnresource';
 import {
     gnSaveContent,
@@ -65,9 +66,9 @@ describe('gnsave epics', () => {
                     expect(actions.map(({ type }) => type))
                         .toEqual([
                             SAVING_RESOURCE,
-                            SET_CONTROL_PROPERTY,
                             SAVE_SUCCESS,
-                            SET_RESOURCE
+                            SET_RESOURCE,
+                            UPDATE_SINGLE_RESOURCE
                         ]);
                 } catch (e) {
                     done(e);
@@ -95,9 +96,9 @@ describe('gnsave epics', () => {
                     expect(actions.map(({ type }) => type))
                         .toEqual([
                             SAVING_RESOURCE,
-                            SET_CONTROL_PROPERTY,
                             SAVE_SUCCESS,
-                            SET_RESOURCE
+                            SET_RESOURCE,
+                            UPDATE_SINGLE_RESOURCE
                         ]);
                 } catch (e) {
                     done(e);

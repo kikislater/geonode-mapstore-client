@@ -10,6 +10,7 @@ import url from 'url';
 import queryString from "query-string";
 import isEmpty from "lodash/isEmpty";
 import get from "lodash/get";
+import omit from 'lodash/omit';
 
 /**
  * Get geonode config
@@ -84,12 +85,12 @@ export const parseDevHostname = (requestUrl) => {
                 port: null,
                 href: null,
                 slashes: null,
-                query: requestUrl.includes('/api/')
+                query: omit(requestUrl.includes('/api/')
                     ? parsedUrl?.query
                     : {
                         ...query,
                         ...parsedUrl?.query
-                    }
+                    }, ['debug'])
             });
         }
     }

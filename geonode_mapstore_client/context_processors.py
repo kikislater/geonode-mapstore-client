@@ -17,7 +17,7 @@ from geonode.utils import get_supported_datasets_file_types
 
 def resource_urls(request):
     """Global values to pass to templates"""
-    defaults = dict(GEOAPPS=["GeoStory", "GeoDashboard"])
+    defaults = dict(GEOAPPS=["GeoStory", "GeoDashboard", "MapViewer"])
     defaults["GEONODE_SETTINGS"] = {
         "MAP_BASELAYERS": getattr(settings, "MAPSTORE_BASELAYERS", []),
         "MAP_BASELAYERS_SOURCES": getattr(settings, "MAPSTORE_BASELAYERS_SOURCES", {}),

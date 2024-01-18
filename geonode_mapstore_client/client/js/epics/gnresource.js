@@ -91,6 +91,14 @@ import {
 } from '@mapstore/framework/actions/notifications';
 import { getStyleProperties } from '@js/api/geonode/style';
 import { convertDependenciesMappingForCompatibility } from '@mapstore/framework/utils/WidgetsUtils';
+import {
+    setResource as setContextCreatorResource,
+    enableMandatoryPlugins,
+    loadFinished,
+    setCreationStep
+} from '@mapstore/framework/actions/contextcreator';
+import getPluginsConfig from '@mapstore/framework/observables/config/getPluginsConfig';
+import { getGeoNodeLocalConfig } from '@js/utils/APIUtils';
 
 const resourceTypes = {
     [ResourceTypes.DATASET]: {
@@ -304,6 +312,45 @@ const resourceTypes = {
                 ] : []),
                 dashboardLoading(false)
             )
+    },
+    [ResourceTypes.VIEWER]: {
+        resourceObservable: (pk) => {
+            return Observable.defer(() =>
+                Promise.all([
+                    getNewMapConfiguration(),
+                    getPluginsConfig(getGeoNodeLocalConfig('geoNodeSettings.staticPath', '/static/') + 'mapstore/configs/pluginsConfig.json'),
+                    getGeoAppByPk(pk)
+                ])
+            )
+                .switchMap(([newMapConfig, pluginsConfig, resource]) => {
+                    return Observable.of(
+                        setContextCreatorResource({ data: resource.data }, pluginsConfig, null),
+                        configureMap(resource?.data?.mapConfig ? resource.data.mapConfig : newMapConfig),
+                        enableMandatoryPlugins(),
+                        loadFinished(),
+                        setCreationStep('configure-plugins'),
+                        setResource(resource),
+                        setResourceId(pk)
+                    );
+                });
+        },
+        newResourceObservable: () => {
+            return Observable.defer(() =>
+                Promise.all([
+                    getNewMapConfiguration(),
+                    getPluginsConfig(getGeoNodeLocalConfig('geoNodeSettings.staticPath', '/static/') + 'mapstore/configs/pluginsConfig.json')
+                ])
+            )
+                .switchMap(([newMapConfig, pluginsConfig]) => {
+                    return Observable.of(
+                        setContextCreatorResource({ data: { mapConfig: newMapConfig } }, pluginsConfig, null),
+                        configureMap(newMapConfig),
+                        enableMandatoryPlugins(),
+                        loadFinished(),
+                        setCreationStep('configure-plugins')
+                    );
+                });
+        }
     }
 };
 
@@ -350,7 +397,6 @@ export const gnViewerRequestNewResourceConfig = (action$, store) =>
                 ),
                 newResourceObservable({ query }),
                 Observable.of(
-                    setControlProperty('pendingChanges', 'value', null),
                     loadingResourceConfig(false)
                 )
             )
@@ -367,13 +413,6 @@ export const gnViewerRequestResourceConfig = (action$, store) =>
         .switchMap((action) => {
 
             const state = store.getState();
-
-            const currentPendingChanges = state?.controls?.pendingChanges?.value;
-            const pendingChanges = currentPendingChanges
-                && currentPendingChanges.pk === action.pk
-                && currentPendingChanges.resourceType === action.resourceType
-                ? currentPendingChanges
-                : {};
 
             const { resourceObservable } = resourceTypes[action.resourceType] || {};
 
@@ -416,9 +455,6 @@ export const gnViewerRequestResourceConfig = (action$, store) =>
                     : []),
                 resourceObservable(action.pk, {
                     ...action.options,
-                    // set the pending changes as the new data fro maps, dashboards and geostories
-                    // if undefined the returned data will be used
-                    data: pendingChanges?.data,
                     styleService: styleServiceSelector(state),
                     isSamePreviousResource,
                     resourceData,
@@ -426,8 +462,6 @@ export const gnViewerRequestResourceConfig = (action$, store) =>
                     map: isSamePreviousResource && mapSelector(state)
                 }),
                 Observable.of(
-                    ...(pendingChanges?.resource ? [updateResourceProperties(pendingChanges.resource)] : []),
-                    setControlProperty('pendingChanges', 'value', null),
                     loadingResourceConfig(false)
                 )
             )

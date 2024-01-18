@@ -144,6 +144,9 @@ export const getDataPayload = (state, resourceType) => {
     case ResourceTypes.DASHBOARD: {
         return widgetsConfig(state);
     }
+    case ResourceTypes.VIEWER: {
+        return {};
+    }
     default:
         return null;
     }

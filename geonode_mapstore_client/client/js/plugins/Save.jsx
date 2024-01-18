@@ -29,8 +29,7 @@ import {
     getResourceDirtyState
 } from '@js/selectors/resource';
 import { getCurrentResourcePermissionsLoading } from '@js/selectors/resourceservice';
-import { withRouter } from 'react-router';
-import { setControlProperty } from '@mapstore/framework/actions/controls';
+import { withRouter, Prompt } from 'react-router';
 import { getMessageById } from '@mapstore/framework/utils/LocaleUtils';
 
 function Save(props) {
@@ -59,15 +58,14 @@ function SaveButton({
     loading,
     className,
     dirtyState: dirtyStateProp,
-    location,
-    history,
-    onStorePendingChanges
+    history
 }, { messages }) {
 
+    const prevLocation = history?.location;
     const dirtyState = useRef();
     dirtyState.current = dirtyStateProp;
     useEffect(() => {
-        let prevPathname = history?.location?.pathname;
+
         function onBeforeUnload(event) {
             if (dirtyState.current) {
                 (event || window.event).returnValue = null;
@@ -76,21 +74,11 @@ function SaveButton({
         window.addEventListener('beforeunload', onBeforeUnload);
         return () => {
             window.removeEventListener('beforeunload', onBeforeUnload);
-            const isLocationChanged = prevPathname !== history?.location?.pathname;
-            if (isLocationChanged && dirtyState.current) {
-                const confirmed = window.confirm(getMessageById(messages, 'gnviewer.prompPendingChanges')); // eslint-disable-line no-alert
-                if (!confirmed) {
-                    onStorePendingChanges(dirtyState.current);
-                    history.replace(location);
-                } else {
-                    onStorePendingChanges(null);
-                }
-            }
         };
     }, []);
 
     return enabled
-        ? <Button
+        ? <><Button
             variant={dirtyStateProp ? 'warning' : (variant || "primary")}
             size={size}
             onClick={() => onClick()}
@@ -99,6 +87,26 @@ function SaveButton({
         >
             <Message msgId="save"/>{' '}{loading && <Spinner />}
         </Button>
+        <Prompt
+            when={!!dirtyStateProp}
+            message={(nextLocation, action) => {
+                // on replace if the path are the same
+                // allow the replacement
+                if (action === 'REPLACE' && nextLocation.pathname === prevLocation.pathname) {
+                    return true;
+                }
+                const confirmed = window.confirm(getMessageById(messages, 'gnviewer.prompPendingChanges')); // eslint-disable-line no-alert
+                // if confirm the path should be the next one
+                if (confirmed) {
+                    return true;
+                }
+                // if it is not confirmed the path will be replaced
+                // and this message requested again
+                history.replace(prevLocation);
+                return false;
+            }}
+        />
+        </>
         : null
     ;
 }
@@ -124,8 +132,7 @@ const ConnectedSaveButton = connect(
         })
     ),
     {
-        onClick: saveDirectContent,
-        onStorePendingChanges: setControlProperty.bind(null, 'pendingChanges', 'value')
+        onClick: saveDirectContent
     }
 )((withRouter(SaveButton)));
 
