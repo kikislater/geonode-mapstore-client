@@ -22,7 +22,9 @@ import FaIcon from '@js/components/FaIcon';
 import tooltip from '@mapstore/framework/components/misc/enhancers/tooltip';
 import { openQueryBuilder } from '@mapstore/framework/actions/layerFilter';
 import { getSelectedLayer } from '@mapstore/framework/selectors/layers';
-
+import { newAnnotation } from '@mapstore/framework/plugins/Annotations/actions/annotations';
+import { isDashboardEditing } from '@mapstore/framework/selectors/dashboard';
+import { createWidget } from '@mapstore/framework/actions/widgets';
 // buttons override to use in ActionNavbar for plugin imported from mapstore
 
 export const PrintActionButton = connect(
@@ -156,7 +158,7 @@ export const FilterLayerActionButton = connect(
 
 export const AnnotationsActionButton = connect(
     () => ({}),
-    { onClick: setControlProperty.bind(null, 'annotations', 'enabled', true, true) }
+    { onClick: newAnnotation }
 )(({
     onClick,
     variant,
@@ -169,6 +171,29 @@ export const AnnotationsActionButton = connect(
             onClick={() => onClick()}
         >
             <Message msgId="annotationsbutton" />
+        </Button>
+    );
+});
+
+export const AddWidgetActionButton = connect(
+    (state) => ({
+        enabled: !!isDashboardEditing(state)
+    }),
+    { onClick: createWidget }
+)(({
+    onClick,
+    variant,
+    size,
+    enabled
+}) => {
+    return (
+        <Button
+            variant={variant}
+            size={size}
+            disabled={enabled}
+            onClick={() => onClick()}
+        >
+            <Message msgId="gnviewer.addWidget" />
         </Button>
     );
 });

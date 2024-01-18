@@ -27,6 +27,7 @@ import GeoNodeStyleSelector from '@js/plugins/layersettings/GeoNodeStyleSelector
 import usePluginItems from '@js/hooks/usePluginItems';
 import layersettingsEpics from '@js/epics/layersettings';
 import tooltip from '@mapstore/framework/components/misc/enhancers/tooltip';
+import { isAnnotationLayer } from '@mapstore/framework/plugins/Annotations/utils/AnnotationsUtils';
 
 const Button = tooltip(GNButton);
 
@@ -134,7 +135,9 @@ function LayerSettingsButton({
     selectedLayers,
     selectedGroups
 }) {
-    if (!(status === 'LAYER' || status === 'GROUP')) {
+    if (!(status === 'LAYER' || status === 'GROUP')
+    // hide default settings for annotation layer
+    || (status === 'LAYER' && isAnnotationLayer(selectedLayers?.[0]))) {
         return null;
     }
 

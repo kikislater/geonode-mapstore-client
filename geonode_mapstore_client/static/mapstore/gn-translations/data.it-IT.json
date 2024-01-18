@@ -360,7 +360,8 @@
             "maxLon": "Max Lon",
             "centerLat": "Lat",
             "centerLon": "Lon",
-            "mapExtentHelpText": "<b>Puoi modificare l'estensione e la posizione di questa risorsa</b>. Shift-clic e trascina per disegnare una nuova estensione, fare clic sul marcatore, quindi fare clic e trascinare per impostarne la posizione"
+            "mapExtentHelpText": "<b>Puoi modificare l'estensione e la posizione di questa risorsa</b>. Shift-clic e trascina per disegnare una nuova estensione, fare clic sul marcatore, quindi fare clic e trascinare per impostarne la posizione",
+            "addWidget": "Aggiungi widget"
         }
     }
 }

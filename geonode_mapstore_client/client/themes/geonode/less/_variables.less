@@ -64,6 +64,8 @@
 @gn-tray-color: lighten(@gn-main-color, 10%);
 @gn-tray-border: lighten(@gn-primary, 10%);
 
+@gn-mask-bg: #00000088;
+
 @gn-font-family-serif: Georgia, 'Times New Roman', Times, serif;
 @gn-font-family-monospace: Menlo, Monaco, Consolas, 'Courier New', monospace;
 @gn-font-family-sans-serif: 'Montserrat', sans-serif;
@@ -335,6 +337,8 @@
         timeline-histogram-border-color: --gn-timeline-histogram-color, darken(@gn-primary, 10%);
         timeline-range-bg: --gn-timeline-range-bg, rgba(@gn-main-color, 0.2);
         timeline-playback-range-bg: --gn-timeline-playback-range-bg, rgba(lighten(@gn-success, 10%), 0.2);
+
+        mask-bg: --gn-mask-bg, @gn-mask-bg;
 
     }
 }

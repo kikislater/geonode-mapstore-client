@@ -9,7 +9,7 @@
 import { Observable } from 'rxjs';
 import uuidv1 from 'uuid/v1';
 import { updateNode, updateSettingsParams } from '@mapstore/framework/actions/layers';
-import { updateStatus, UPDATE_STYLE_CODE } from '@mapstore/framework/actions/styleeditor';
+import { updateStatus, UPDATE_STYLE_CODE, initStyleService } from '@mapstore/framework/actions/styleeditor';
 import { setControlProperty, SET_CONTROL_PROPERTY } from '@mapstore/framework/actions/controls';
 import { updateAdditionalLayer } from '@mapstore/framework/actions/additionallayers';
 import { STYLE_OWNER_NAME } from '@mapstore/framework/utils/StyleEditorUtils';
@@ -130,7 +130,13 @@ export const gnRequestDatasetAvailableStyles = (action$, store) =>
             const state = store.getState();
             const styleService = action?.options?.styleService || styleServiceSelector(state);
             return Observable.concat(
-                Observable.of(setControlProperty('visualStyleEditor', 'enabled', true)),
+                Observable.of(
+                    setControlProperty('visualStyleEditor', 'enabled', true),
+                    initStyleService(styleService, {
+                        editingAllowedRoles: ['ALL'],
+                        editingAllowedGroups: []
+                    })
+                ),
                 Observable.defer(() => getGeoNodeStyles({ layer: action.layer, styleService }))
                     .switchMap(([styles]) => {
                         const style = action?.options?.style || styles?.[0]?.name;

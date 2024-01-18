@@ -141,10 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     loaderComponent: MainLoader,
                                     initialState: {
                                         defaultState: {
-                                            ...securityState,
-                                            maptype: {
-                                                mapType
-                                            }
+                                            ...securityState
                                         }
                                     },
                                     themeCfg: null,

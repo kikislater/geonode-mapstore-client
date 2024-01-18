@@ -33,7 +33,8 @@ import {
     isNewResource,
     getResourceId,
     isThumbnailChanged,
-    updatingThumbnailResource
+    updatingThumbnailResource,
+    getViewedResourceType
 } from '@js/selectors/resource';
 import Button from '@js/components/Button';
 import useDetectClickOut from '@js/hooks/useDetectClickOut';
@@ -46,6 +47,7 @@ import { mapSelector } from '@mapstore/framework/selectors/map';
 import { parsePluginConfigExpressions } from '@js/utils/MenuUtils';
 import detailViewerEpics from '@js/epics/detailviewer';
 import usePluginItems from '@js/hooks/usePluginItems';
+import { getResourceTypesInfo } from '@js/utils/ResourceUtils';
 
 const ConnectedDetailsPanel = connect(
     createSelector([
@@ -82,25 +84,26 @@ const ConnectedDetailsPanel = connect(
     }
 )(DetailsPanel);
 
-const ButtonViewer = ({ onClick, hide, variant, size, showMessage }) => {
+const ButtonViewer = ({ onClick, hide, variant, size, showMessage, resourceType }) => {
     const handleClickButton = () => {
         onClick();
     };
-
+    const { icon = 'info-circle' } = getResourceTypesInfo()[resourceType] || {};
     return !hide ? (
         <Button
             variant={variant}
             size={size}
             onClick={handleClickButton}
         >
-            {!showMessage ? <FaIcon name="info-circle" /> : <Message msgId="gnviewer.viewInfo"/>}
+            {!showMessage ? <FaIcon name={icon} /> : <Message msgId="gnviewer.viewInfo"/>}
         </Button>
     ) : null;
 };
 
 const ConnectedButton = connect(
-    createSelector([isNewResource, getResourceId], (isNew, resourcePk) => ({
-        hide: isNew || !resourcePk
+    createSelector([isNewResource, getResourceId, getViewedResourceType], (isNew, resourcePk, resourceType) => ({
+        hide: isNew || !resourcePk,
+        resourceType
     })),
     {
         onClick: setControlProperty.bind(

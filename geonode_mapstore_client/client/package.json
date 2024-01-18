@@ -26,8 +26,7 @@
   "author": "GeoSolutions",
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "@babel/traverse": "7.22.5",
-    "@mapstore/project": "1.0.25",
+    "@mapstore/project": "1.0.27",
     "dotenv": "10.0.0",
     "jsdoc": "4.0.0"
   },
@@ -36,7 +35,6 @@
     "@react-three/drei": "8.20.2",
     "@react-three/fiber": "6.0.0",
     "dompurify": "2.2.6",
-    "font-awesome": "4.7.0",
     "mapstore": "file:MapStore2",
     "react-helmet": "6.1.0",
     "react-intl": "2.3.0",

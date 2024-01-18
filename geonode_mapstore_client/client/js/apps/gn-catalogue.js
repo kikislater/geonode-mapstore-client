@@ -34,7 +34,6 @@ import mapPopups from '@mapstore/framework/reducers/mapPopups';
 import catalog from '@mapstore/framework/reducers/catalog';
 import searchconfig from '@mapstore/framework/reducers/searchconfig';
 import widgets from '@mapstore/framework/reducers/widgets';
-import annotations from '@mapstore/framework/reducers/annotations';
 // end
 
 import ViewerRoute from '@js/routes/Viewer';
@@ -163,17 +162,7 @@ getEndpoints()
                                 loaderComponent: MainLoader,
                                 initialState: {
                                     defaultState: {
-                                        ...securityState,
-                                        maptype: {
-                                            mapType
-                                        },
-                                        annotations: {
-                                            config: {
-                                                multiGeometry: true,
-                                                validationErrors: {}
-                                            },
-                                            defaultTextAnnotation: 'New'
-                                        }
+                                        ...securityState
                                     }
                                 },
                                 themeCfg: null,
@@ -209,7 +198,6 @@ getEndpoints()
                                     widgets,
                                     geostory,
                                     gnsearch,
-                                    annotations,
                                     notifications,
                                     ...pluginsDefinition.reducers
                                 },

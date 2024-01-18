@@ -53,7 +53,7 @@ const getTargetUrl = () => {
         return '';
     }
     const { host, protocol } = url.parse(geonodeUrl);
-    targetURL = `${protocol}//${host}`;
+    targetURL = `${protocol}//${host}/`;
     return targetURL;
 };
 
@@ -91,7 +91,7 @@ export function initializeApp() {
             if (tUrl && config.url?.match(tUrl)?.[0]) {
                 return {
                     ...config,
-                    url: config.url.replace(tUrl, '')
+                    url: `/${config.url.replace(tUrl, '')}`
                 };
             }
             return config;

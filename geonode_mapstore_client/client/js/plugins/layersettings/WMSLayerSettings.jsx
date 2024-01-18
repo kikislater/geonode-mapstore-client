@@ -14,7 +14,7 @@ import Button from '@js/components/Button';
 import IntlNumberFormControl from '@mapstore/framework/components/I18N/IntlNumberFormControl';
 import Message from '@mapstore/framework/components/I18N/Message';
 import InfoPopover from '@mapstore/framework/components/widgets/widget/InfoPopover';
-import { DEFAULT_FORMAT_WMS, getSupportedFormat } from '@mapstore/framework/api/WMS';
+import { getSupportedFormat } from '@mapstore/framework/api/WMS';
 import { getConfigProp } from '@mapstore/framework/utils/ConfigUtils';
 import LegendImage from '@mapstore/framework/components/TOC/fragments/legend/Legend';
 import Select from 'react-select';
@@ -216,8 +216,7 @@ function WMSLayerSettings({
                             options={formatLoading
                                 ? []
                                 : (formats?.map((value) => ({ value, label: value }))
-                                || imageFormats
-                                || DEFAULT_FORMAT_WMS)}
+                                || imageFormats)}
                             value={format}
                             onChange={({ value }) => onChange({ format: value })}/>
                         <Button

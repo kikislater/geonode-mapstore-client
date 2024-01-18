@@ -14,7 +14,8 @@ import {
     LayerDownloadActionButton,
     AnnotationsActionButton,
     FullScreenActionButton,
-    FilterLayerActionButton
+    FilterLayerActionButton,
+    AddWidgetActionButton
 } from '@js/plugins/actionnavbar/buttons';
 import { getPluginsContext } from '@js/utils/PluginsContextUtils';
 import { toModulePlugin as msToModulePlugin } from '@mapstore/framework/utils/ModulePluginsUtils';
@@ -350,7 +351,18 @@ export const plugins = {
     ),
     DashboardEditorPlugin: toModulePlugin(
         'DashboardEditor',
-        () => import(/* webpackChunkName: 'plugins/dashboard-editor-plugin' */ '@mapstore/framework/plugins/DashboardEditor')
+        () => import(/* webpackChunkName: 'plugins/dashboard-editor-plugin' */ '@mapstore/framework/plugins/DashboardEditor'),
+        {
+            overrides: {
+                containers: {
+                    ActionNavbar: {
+                        name: 'DashboardEditor',
+                        Component: AddWidgetActionButton,
+                        doNotHide: true
+                    }
+                }
+            }
+        }
     ),
     DashboardPlugin: toModulePlugin(
         'Dashboard',
@@ -365,12 +377,15 @@ export const plugins = {
                     ActionNavbar: {
                         name: 'Annotations',
                         Component: AnnotationsActionButton,
-                        priority: 3,
                         doNotHide: true
                     }
                 }
             }
         }
+    ),
+    GlobeViewSwitcherPlugin: toModulePlugin(
+        'GlobeViewSwitcher',
+        () => import(/* webpackChunkName: 'plugins/globe-view-switcher' */ '@mapstore/framework/plugins/GlobeViewSwitcher')
     ),
     DeleteResourcePlugin: toModulePlugin(
         'DeleteResource',

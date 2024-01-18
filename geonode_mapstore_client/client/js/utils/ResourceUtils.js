@@ -52,6 +52,22 @@ export const GXP_PTYPES = {
 
 export const FEATURE_INFO_FORMAT = 'TEMPLATE';
 
+const datasetAttributeSetToFields = ({ attribute_set: attributeSet = [] }) => {
+    return attributeSet
+        .filter(({ attribute_type: type }) => !type.includes('gml:'))
+        .map(({
+            attribute,
+            attribute_label: alias,
+            attribute_type: type
+        }) => {
+            return {
+                name: attribute,
+                alias: alias,
+                type: type
+            };
+        });
+};
+
 /**
 * convert resource layer configuration to a mapstore layer object
 * @param {object} resource geonode layer resource
@@ -124,6 +140,7 @@ export const resourceToLayerConfig = (resource) => {
             defaultLayerFormat = 'image/png',
             defaultTileSize = 512
         } = getConfigProp('geoNodeSettings') || {};
+        const fields = datasetAttributeSetToFields(resource);
         return {
             perms,
             id: uuid(),
@@ -151,7 +168,8 @@ export const resourceToLayerConfig = (resource) => {
             visibility: true,
             ...(params && { params }),
             ...(dimensions.length > 0 && ({ dimensions })),
-            extendedParams
+            extendedParams,
+            ...(fields && { fields })
         };
     }
 };

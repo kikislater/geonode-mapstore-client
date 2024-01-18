@@ -408,7 +408,10 @@ export const gnViewerRequestResourceConfig = (action$, store) =>
                         styleService
                     }))
                         .switchMap((updatedStyleService) => {
-                            return Observable.of(initStyleService(updatedStyleService));
+                            return Observable.of(initStyleService(updatedStyleService, {
+                                editingAllowedRoles: ['ALL'],
+                                editingAllowedGroups: []
+                            }));
                         })]
                     : []),
                 resourceObservable(action.pk, {
