@@ -387,6 +387,10 @@ export const plugins = {
         'GlobeViewSwitcher',
         () => import(/* webpackChunkName: 'plugins/globe-view-switcher' */ '@mapstore/framework/plugins/GlobeViewSwitcher')
     ),
+    ContextCreatorPlugin: toModulePlugin(
+        'ContextCreator',
+        () => import(/* webpackChunkName: 'plugins/context-creator' */ '@mapstore/framework/plugins/ContextCreator')
+    ),
     DeleteResourcePlugin: toModulePlugin(
         'DeleteResource',
         () => import(/* webpackChunkName: 'plugins/delete-resource-plugin' */ '@js/plugins/DeleteResource')

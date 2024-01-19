@@ -24,7 +24,7 @@ import isEqual from 'lodash/isEqual';
 import pick from 'lodash/pick';
 import isEmpty from 'lodash/isEmpty';
 import get from 'lodash/get';
-
+import { generateContextResource } from '@mapstore/framework/selectors/contextcreator';
 /**
 * @module selectors/resource
 */
@@ -145,7 +145,9 @@ export const getDataPayload = (state, resourceType) => {
         return widgetsConfig(state);
     }
     case ResourceTypes.VIEWER: {
-        return {};
+        const { data } = generateContextResource(state) || {};
+        const { mapConfig, ...mapViewerConfig } = data || {};
+        return mapViewerConfig || {};
     }
     default:
         return null;
@@ -239,6 +241,12 @@ function isResourceDataEqual(state, initialData = {}, currentData = {}) {
             removeProperty(initialData, initialListItemsToRemove),
             removeProperty(newCurrentData, currentListItemsToRemove)
         ) && !isWidgetMapCenterChanged;
+    }
+    case ResourceTypes.VIEWER: {
+        return isEqual(
+            removeProperty(initialData, ['mapConfig']),
+            removeProperty(currentData, ['mapConfig'])
+        );
     }
     default:
         return true;

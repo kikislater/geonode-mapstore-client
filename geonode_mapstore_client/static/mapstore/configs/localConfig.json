@@ -3700,6 +3700,24 @@
                 "cfg": {
                     "containerPosition": "rightOverlay"
                 }
+            },
+            {
+                "name": "ContextCreator",
+                "cfg": {
+                    "documentationBaseURL": "https://mapstore.geosolutionsgroup.com/mapstore/docs/api/plugins",
+                    "backToPageDestRoute": "/context-manager",
+                    "backToPageConfirmationMessage": "contextCreator.undo",
+                    "availableSteps": [
+                        "configure-plugins",
+                        "configure-themes"
+                    ],
+                    "hideUploadExtension": true,
+                    "hideSaveButton": true,
+                    "hideCloseButton": true,
+                    "tutorials": {},
+                    "themes": [],
+                    "viewerPlugins": []
+                }
             }
         ]
     }
