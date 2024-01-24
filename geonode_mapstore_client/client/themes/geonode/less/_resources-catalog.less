@@ -4,7 +4,7 @@
 // **************
 
 #gn-components-theme(@theme-vars) {
-    .gn-datasets-catalog {
+    .gn-resources-catalog {
         .color-var(@theme-vars[main-color]);
         .background-color-var(@theme-vars[main-bg]);
     }
@@ -14,7 +14,7 @@
 // Layout
 // **************
 
-.gn-datasets-catalog {
+.gn-resources-catalog {
     position: absolute;
     top: 0;
     right: 0;
@@ -24,21 +24,21 @@
     display: flex;
     flex-direction: column;
     .shadow-soft();
-    .gn-datasets-catalog-head {
+    .gn-resources-catalog-head {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        .gn-datasets-catalog-title {
+        .gn-resources-catalog-title {
             padding: 0 0.5rem;
             font-size: @font-size-lg;
         }
     }
-    .gn-datasets-catalog-body {
+    .gn-resources-catalog-body {
         position: relative;
         overflow: auto;
         flex: 1;
     }
-    .gn-datasets-catalog-list {
+    .gn-resources-catalog-list {
         position: absolute;
         top: 0;
         left: 0;
@@ -63,7 +63,7 @@
             }
         }
     }
-    .gn-datasets-catalog-filter {
+    .gn-resources-catalog-filter {
         margin: 0.5rem;
         display: flex;
         align-items: center;
@@ -79,7 +79,7 @@
             padding: 0.25rem 0.5rem;
         }
     }
-    .gn-datasets-catalog-alert {
+    .gn-resources-catalog-alert {
         width: 100%;
         padding: 0.25rem;
         padding-top: 1rem;

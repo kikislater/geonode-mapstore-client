@@ -360,7 +360,18 @@
             "centerLat": "Lat",
             "centerLon": "Lon",
             "mapExtentHelpText": "<b>Vous pouvez modifier l'étendue et la position de cette ressource</b>. Shift-clic et faites glisser pour dessiner une nouvelle étendue, cliquez sur le marqueur puis cliquez et faites glisser pour définir sa position",
-            "addWidget": "Ajouter un widget"
+            "addWidget": "Ajouter un widget",
+            "backToMap": "Retour à la carte",
+            "copyConfigurationFrom": "Copier la configuration depuis",
+            "copyConfigurationFromTitle": "Copier la configuration de la visionneuse de carte",
+            "selectLinkedMapViewer": "Sélectionner la visionneuse de carte",
+            "mapViewersCatalogFilterPlaceholder": "Filtrer les ressources de la visionneuse de carte...",
+            "mapViewersCatalogEntriesNoResults": "Aucun résultat ne correspond à votre recherche",
+            "linkToViewer": "Lien vers le visualiseur",
+            "createNewViewer": "Créer une nouvelle visionneuse",
+            "manageViewerConfiguration": "Gérer la configuration de la visionneuse",
+            "previewCustomViewer": "Aperçu de la visionneuse personnalisée",
+            "editMapConfiguration": "Modifier la configuration de la carte"
         }
     }
 }

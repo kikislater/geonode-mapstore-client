@@ -81,14 +81,17 @@ function ViewerRoute({
     useEffect(() => {
         if (!pending && pk !== undefined) {
             if (pk === 'new') {
-                onCreate(resourceType);
+                onCreate(resourceType, {
+                    params: match.params
+                });
             } else {
                 onUpdate(resourceType, pk, {
-                    page: name
+                    page: name,
+                    params: match.params
                 });
             }
         }
-    }, [pending, pk]);
+    }, [pending, match.params]);
 
     const loading = loadingConfig || pending;
     const parsedPlugins = useMemo(() => ({ ...loadedPlugins, ...getPlugins(plugins) }), [loadedPlugins]);

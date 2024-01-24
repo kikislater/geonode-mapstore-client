@@ -10,14 +10,19 @@ import { Observable } from 'rxjs';
 import axios from '@mapstore/framework/libs/ajax';
 import uuid from "uuid";
 import url from "url";
-import { getNewMapConfiguration, getNewGeoStoryConfig } from '@js/api/geonode/config';
+import {
+    getNewMapConfiguration,
+    getNewGeoStoryConfig,
+    getDefaultPluginsConfig
+} from '@js/api/geonode/config';
 import {
     getDatasetByPk,
     getGeoAppByPk,
     getDocumentByPk,
     getMapByPk,
     getCompactPermissionsByPk,
-    setResourceThumbnail
+    setResourceThumbnail,
+    getLinkedResourcesByPk
 } from '@js/api/geonode/v2';
 import { configureMap } from '@mapstore/framework/actions/config';
 import { mapSelector } from '@mapstore/framework/selectors/map';
@@ -45,7 +50,8 @@ import {
     setResourceCompactPermissions,
     updateResourceProperties,
     SET_RESOURCE_THUMBNAIL,
-    updateResource
+    updateResource,
+    setResourcePathParameters
 } from '@js/actions/gnresource';
 
 import {
@@ -97,8 +103,7 @@ import {
     loadFinished,
     setCreationStep
 } from '@mapstore/framework/actions/contextcreator';
-import getPluginsConfig from '@mapstore/framework/observables/config/getPluginsConfig';
-import { getGeoNodeLocalConfig } from '@js/utils/APIUtils';
+import { setContext } from '@mapstore/framework/actions/context';
 
 const resourceTypes = {
     [ResourceTypes.DATASET]: {
@@ -190,17 +195,31 @@ const resourceTypes = {
         resourceObservable: (pk, options) =>
             Observable.defer(() =>  axios.all([
                 getNewMapConfiguration(),
-                getMapByPk(pk)
+                getMapByPk(pk),
+                getLinkedResourcesByPk(pk)
+                    .then(({ linked_to: linkedTo = [] } = {}) => {
+                        const mapViewers = linkedTo.find(({ resource_type: resourceType }) => resourceType === ResourceTypes.VIEWER);
+                        return mapViewers?.pk
+                            ? getGeoAppByPk(mapViewers?.pk)
+                            : null;
+                    })
+                    .catch(() => null)
             ]))
-                .switchMap(([baseConfig, resource]) => {
+                .switchMap(([baseConfig, resource, mapViewerResource]) => {
                     const mapConfig = options.data
                         ? options.data
                         : toMapStoreMapConfig(resource, baseConfig);
                     return Observable.of(
                         configureMap(mapConfig),
                         setControlProperty('toolbar', 'expanded', false),
+                        setContext(mapViewerResource ? mapViewerResource.data : {}),
                         setResource(resource),
-                        setResourceId(pk)
+                        setResourceId(pk),
+                        setResourcePathParameters({
+                            ...options?.params,
+                            appPk: mapViewerResource?.pk,
+                            hasViewer: !!mapViewerResource?.pk
+                        })
                     );
                 }),
         newResourceObservable: (options) =>
@@ -318,7 +337,7 @@ const resourceTypes = {
             return Observable.defer(() =>
                 Promise.all([
                     getNewMapConfiguration(),
-                    getPluginsConfig(getGeoNodeLocalConfig('geoNodeSettings.staticPath', '/static/') + 'mapstore/configs/pluginsConfig.json'),
+                    getDefaultPluginsConfig(),
                     getGeoAppByPk(pk)
                 ])
             )
@@ -338,7 +357,7 @@ const resourceTypes = {
             return Observable.defer(() =>
                 Promise.all([
                     getNewMapConfiguration(),
-                    getPluginsConfig(getGeoNodeLocalConfig('geoNodeSettings.staticPath', '/static/') + 'mapstore/configs/pluginsConfig.json')
+                    getDefaultPluginsConfig()
                 ])
             )
                 .switchMap(([newMapConfig, pluginsConfig]) => {
@@ -393,7 +412,8 @@ export const gnViewerRequestNewResourceConfig = (action$, store) =>
                     ...getResetActions(),
                     loadingResourceConfig(true),
                     setNewResource(),
-                    setResourceType(action.resourceType)
+                    setResourceType(action.resourceType),
+                    setResourcePathParameters(action?.options?.params)
                 ),
                 newResourceObservable({ query }),
                 Observable.of(
@@ -429,7 +449,8 @@ export const gnViewerRequestResourceConfig = (action$, store) =>
                 Observable.of(
                     ...getResetActions(isSamePreviousResource),
                     loadingResourceConfig(true),
-                    setResourceType(action.resourceType)
+                    setResourceType(action.resourceType),
+                    setResourcePathParameters(action?.options?.params)
                 ),
                 ...((!isSamePreviousResource && !!isLoggedIn(state))
                     ? [
@@ -459,7 +480,8 @@ export const gnViewerRequestResourceConfig = (action$, store) =>
                     isSamePreviousResource,
                     resourceData,
                     selectedLayer: isSamePreviousResource && getSelectedLayer(state),
-                    map: isSamePreviousResource && mapSelector(state)
+                    map: isSamePreviousResource && mapSelector(state),
+                    params: action?.options?.params
                 }),
                 Observable.of(
                     loadingResourceConfig(false)

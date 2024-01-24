@@ -57,11 +57,9 @@ function SaveButton({
     size,
     loading,
     className,
-    dirtyState: dirtyStateProp,
-    history
+    dirtyState: dirtyStateProp
 }, { messages }) {
 
-    const prevLocation = history?.location;
     const dirtyState = useRef();
     dirtyState.current = dirtyStateProp;
     useEffect(() => {
@@ -89,20 +87,15 @@ function SaveButton({
         </Button>
         <Prompt
             when={!!dirtyStateProp}
-            message={(nextLocation, action) => {
-                // on replace if the path are the same
-                // allow the replacement
-                if (action === 'REPLACE' && nextLocation.pathname === prevLocation.pathname) {
-                    return true;
-                }
+            message={(/* nextLocation, action */) => {
                 const confirmed = window.confirm(getMessageById(messages, 'gnviewer.prompPendingChanges')); // eslint-disable-line no-alert
                 // if confirm the path should be the next one
                 if (confirmed) {
                     return true;
                 }
-                // if it is not confirmed the path will be replaced
-                // and this message requested again
-                history.replace(prevLocation);
+                // currently it's not possible to replace the pathname
+                // without side effect
+                // such as reloading of the page
                 return false;
             }}
         />

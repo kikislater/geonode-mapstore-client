@@ -362,7 +362,18 @@
             "centerLat": "Lat",
             "centerLon": "Lon",
             "mapExtentHelpText": "<b>Puoi modificare l'estensione e la posizione di questa risorsa</b>. Shift-clic e trascina per disegnare una nuova estensione, fare clic sul marcatore, quindi fare clic e trascinare per impostarne la posizione",
-            "addWidget": "Aggiungi widget"
+            "addWidget": "Aggiungi widget",
+            "backToMap": "Torna alla mappa",
+            "copyConfigurationFrom": "Copia configurazione da",
+            "copyConfigurationFromTitle": "Copia la configurazione del visualizzatore di mappa",
+            "selectLinkedMapViewer": "Seleziona il visualizzatoredi  mappa",
+            "mapViewersCatalogFilterPlaceholder": "Filtra i visualizzatore di mappa...",
+            "mapViewersCatalogEntriesNoResults": "Nessun risultato corrisponde alla tua ricerca",
+            "linkToViewer": "Collega ad un visualizzatore",
+            "createNewViewer": "Crea un nuovo visualizzatore",
+            "manageViewerConfiguration": "Gestisci la configurazione del visualizzatore",
+            "previewCustomViewer": "Anteprima del visualizzatore personalizzato",
+            "editMapConfiguration": "Modifica configurazione della mappa"
         }
     }
 }

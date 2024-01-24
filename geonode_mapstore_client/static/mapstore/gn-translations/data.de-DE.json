@@ -360,7 +360,18 @@
             "centerLat": "Lat",
             "centerLon": "Lon",
             "mapExtentHelpText": "<b>Sie können die Ausdehnung und Position dieser Ressource bearbeiten</b>. Shift-Klick und ziehen Sie, um eine neue Ausdehnung zu zeichnen, klicken Sie auf die Markierung und klicken und ziehen Sie dann, um ihre Position festzulegen",
-            "addWidget": "Widget hinzufügen"
+            "addWidget": "Widget hinzufügen",
+            "backToMap": "Zurück zur Karte",
+            "copyConfigurationFrom": "Konfiguration kopieren von",
+            "copyConfigurationFromTitle": "Map-Viewer-Konfiguration kopieren",
+            "selectLinkedMapViewer": "Kartenviewer auswählen",
+            "mapViewersCatalogFilterPlaceholder": "Maps-Viewer-Ressourcen filtern…",
+            "mapViewersCatalogEntriesNoResults": "Keine Ergebnisse entsprechen Ihrer Suche",
+            "linkToViewer": "Link zum Viewer",
+            "createNewViewer": "Neuen Viewer erstellen",
+            "manageViewerConfiguration": "Viewer-Konfiguration verwalten",
+            "previewCustomViewer": "Vorschau des benutzerdefinierten Viewers",
+            "editMapConfiguration": "Kartenkonfiguration bearbeiten"
         }
     }
 }

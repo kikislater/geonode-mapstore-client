@@ -359,7 +359,18 @@
             "centerLat": "Lat",
             "centerLon": "Lon",
             "mapExtentHelpText": "<b>Puedes editar la extensión y posición de este recurso</b>. Shift-clic y arrastre para dibujar una nueva extensión, haga clic en el marcador y luego haga clic y arrastre para establecer su posición",
-            "addWidget": "Agregar widget"
+            "addWidget": "Agregar widget",
+            "backToMap": "Volver al mapa",
+            "copyConfigurationFrom": "Copiar configuración de",
+            "copyConfigurationFromTitle": "Copiar configuración del visor de mapas",
+            "selectLinkedMapViewer": "Seleccionar visor de mapas",
+            "mapViewersCatalogFilterPlaceholder": "Filtrar recursos del visor de mapas...",
+            "mapViewersCatalogEntriesNoResults": "Ningún resultado coincide con su búsqueda",
+            "linkToViewer": "Enlace al visor",
+            "createNewViewer": "Crear nuevo visor",
+            "manageViewerConfiguration": "Administrar la configuración del visor",
+            "previewCustomViewer": "Vista previa del visor personalizado",
+            "editMapConfiguration": "Editar configuración del mapa"
         }
     }
 }

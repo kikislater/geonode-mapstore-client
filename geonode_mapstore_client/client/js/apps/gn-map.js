@@ -34,9 +34,11 @@ import mapPopups from '@mapstore/framework/reducers/mapPopups';
 import catalog from '@mapstore/framework/reducers/catalog';
 import searchconfig from '@mapstore/framework/reducers/searchconfig';
 import widgets from '@mapstore/framework/reducers/widgets';
+import context from '@mapstore/framework/reducers/context';
 // end
 
 import ViewerRoute from '@js/routes/Viewer';
+import MapViewerRoute from '@js/routes/MapViewer';
 
 import gnresource from '@js/reducers/gnresource';
 import gnsettings from '@js/reducers/gnsettings';
@@ -81,7 +83,8 @@ const ConnectedRouter = connect((state) => ({
 }))(Router);
 
 const viewer = {
-    [appRouteComponentTypes.VIEWER]: ViewerRoute
+    [appRouteComponentTypes.VIEWER]: ViewerRoute,
+    [appRouteComponentTypes.MAP_VIEWER]: MapViewerRoute
 };
 
 const routes = MAP_ROUTES.map(({component, ...config}) => ({...config, component: viewer[component]}));
@@ -174,6 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                         catalog,
                                         searchconfig,
                                         widgets,
+                                        context,
                                         ...pluginsDefinition.reducers
                                     },
                                     appEpics,

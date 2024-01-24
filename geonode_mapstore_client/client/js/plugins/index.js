@@ -434,6 +434,10 @@ export const plugins = {
     FeaturedResourcesGridPlugin: toModulePlugin(
         'FeaturedResourcesGrid',
         () => import(/* webpackChunkName: 'plugins/featured-resources-grid' */ '@js/plugins/FeaturedResourcesGrid')
+    ),
+    MapViewersCatalogPlugin: toModulePlugin(
+        'MapViewersCatalog',
+        () => import(/* webpackChunkName: 'plugins/map-viewers-catalog' */ '@js/plugins/MapViewersCatalog')
     )
 };
 

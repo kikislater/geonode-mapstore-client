@@ -17,7 +17,6 @@ import {
     saveDirectContent,
     SAVE_CONTENT
 } from '@js/actions/gnsave';
-import { SET_CONTROL_PROPERTY } from '@mapstore/framework/actions/controls';
 import {
     RESET_GEO_LIMITS,
     SET_RESOURCE,

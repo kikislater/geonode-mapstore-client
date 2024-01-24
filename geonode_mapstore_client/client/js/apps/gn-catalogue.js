@@ -34,12 +34,14 @@ import mapPopups from '@mapstore/framework/reducers/mapPopups';
 import catalog from '@mapstore/framework/reducers/catalog';
 import searchconfig from '@mapstore/framework/reducers/searchconfig';
 import widgets from '@mapstore/framework/reducers/widgets';
+import context from '@mapstore/framework/reducers/context';
 // end
 
 import ViewerRoute from '@js/routes/Viewer';
 import UploadDatasetRoute from '@js/routes/UploadDataset';
 import UploadDocumentRoute from '@js/routes/UploadDocument';
 import CatalogueRoute from '@js/routes/Catalogue';
+import MapViewerRoute from '@js/routes/MapViewer';
 
 import gnsearch from '@js/reducers/gnsearch';
 import gnresource from '@js/reducers/gnresource';
@@ -103,7 +105,8 @@ const viewers = {
     [appRouteComponentTypes.VIEWER]: ViewerRoute,
     [appRouteComponentTypes.CATALOGUE]: CatalogueRoute,
     [appRouteComponentTypes.DATASET_UPLOAD]: UploadDatasetRoute,
-    [appRouteComponentTypes.DOCUMENT_UPLOAD]: UploadDocumentRoute
+    [appRouteComponentTypes.DOCUMENT_UPLOAD]: UploadDocumentRoute,
+    [appRouteComponentTypes.MAP_VIEWER]: MapViewerRoute
 };
 
 const routes = CATALOGUE_ROUTES.map(({ component, ...config }) => ({ ...config, component: viewers[component] }));
@@ -199,6 +202,7 @@ getEndpoints()
                                     geostory,
                                     gnsearch,
                                     notifications,
+                                    context,
                                     ...pluginsDefinition.reducers
                                 },
                                 appEpics,

@@ -13,7 +13,8 @@ export const appRouteComponentTypes = {
     CATALOGUE: 'CatalogueRoute',
     DATASET_UPLOAD: 'UploadDatasetRoute',
     DOCUMENT_UPLOAD: 'UploadDocumentRoute',
-    COMPONENTS: 'ComponentsRoute'
+    COMPONENTS: 'ComponentsRoute',
+    MAP_VIEWER: 'MapViewerRoute'
 };
 
 export const COMPONENTS_ROUTES = [
@@ -31,7 +32,7 @@ export const MAP_ROUTES = [
         pageConfig: {
             resourceType: ResourceTypes.MAP
         },
-        component: appRouteComponentTypes.VIEWER,
+        component: appRouteComponentTypes.MAP_VIEWER,
         shouldNotRequestResources: true
     }
 ];
@@ -112,7 +113,18 @@ export const CATALOGUE_ROUTES = [
         pageConfig: {
             resourceType: ResourceTypes.MAP
         },
-        component: appRouteComponentTypes.VIEWER,
+        component: appRouteComponentTypes.MAP_VIEWER,
+        shouldNotRequestResources: true
+    },
+    {
+        name: 'map_viewer',
+        path: [
+            '/map/:pk/:actionType'
+        ],
+        pageConfig: {
+            resourceType: ResourceTypes.MAP
+        },
+        component: appRouteComponentTypes.MAP_VIEWER,
         shouldNotRequestResources: true
     },
     {
@@ -144,6 +156,17 @@ export const CATALOGUE_ROUTES = [
         ],
         pageConfig: {
             resourceType: ResourceTypes.DASHBOARD
+        },
+        component: appRouteComponentTypes.VIEWER,
+        shouldNotRequestResources: true
+    },
+    {
+        name: 'viewer',
+        path: [
+            '/viewer/:pk/map/:mapPk'
+        ],
+        pageConfig: {
+            resourceType: ResourceTypes.VIEWER
         },
         component: appRouteComponentTypes.VIEWER,
         shouldNotRequestResources: true

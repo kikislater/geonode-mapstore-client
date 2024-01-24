@@ -44,7 +44,7 @@ import { getCurrentResourcePermissionsLoading } from '@js/selectors/resourceserv
 
 const getEmbedUrl = (resource) => {
     const { formatEmbedUrl = (_resource) => _resource?.embed_url  } = getResourceTypesInfo()[resource?.resource_type] || {};
-    return formatEmbedUrl(resource);
+    return formatEmbedUrl(resource) ? resource?.embed_url : null;
 };
 
 const entriesTabs = [

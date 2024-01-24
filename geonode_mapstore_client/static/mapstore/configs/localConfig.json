@@ -75,6 +75,10 @@
         {
             "name": "printEnabled",
             "path": "print.capabilities"
+        },
+        {
+            "name": "resourceParams",
+            "path": "gnresource.params"
         }
     ],
     "projectionDefs": [],
@@ -1450,6 +1454,7 @@
                 "name": "MapThumbnail"
             },
             {
+                "mandatory": true,
                 "name": "ActionNavbar",
                 "cfg": {
                     "containerPosition": "header",
@@ -1488,6 +1493,12 @@
                                     "type": "link",
                                     "href": "{context.getMetadataDetailUrl(state('gnResourceData'))}",
                                     "labelId": "gnviewer.viewMetadata"
+                                },
+                                {
+                                    "type": "link",
+                                    "href": "{'#/map/' + state('resourceParams')?.pk + '/preview/'}",
+                                    "labelId": "gnviewer.previewCustomViewer",
+                                    "disableIf": "{!(state('resourceParams')?.hasViewer && state('resourceParams')?.actionType !== 'preview')}"
                                 }
                             ]
                         },
@@ -1500,6 +1511,17 @@
                                     "type": "link",
                                     "href": "{context.getMetadataUrl(state('gnResourceData'))}",
                                     "labelId": "gnviewer.editMetadata"
+                                },
+                                {
+                                    "type": "link",
+                                    "href": "{'#/viewer/' + (state('resourceParams')?.appPk || 'new') + '/map/' + state('gnResourceData')?.pk}",
+                                    "labelId": "gnviewer.manageViewerConfiguration"
+                                },
+                                {
+                                    "type": "link",
+                                    "href": "{'#/map/' + state('resourceParams')?.pk}",
+                                    "labelId": "gnviewer.editMapConfiguration",
+                                    "disableIf": "{state('resourceParams')?.actionType !== 'preview'}"
                                 }
                             ]
                         },
@@ -1543,6 +1565,7 @@
                 "name": "DeleteResource"
             },
             {
+                "mandatory": true,
                 "name": "DetailViewer",
                 "cfg": {
                     "containerPosition": "rightOverlay",
@@ -2044,6 +2067,7 @@
                 "name": "WidgetsTray"
             },
             {
+                "mandatory": true,
                 "name": "SaveAs",
                 "cfg": {
                     "disablePermission": true
@@ -2071,6 +2095,7 @@
                 }
             },
             {
+                "mandatory": true,
                 "name": "Save",
                 "cfg": {
                     "disablePermission": true
@@ -3468,6 +3493,12 @@
                     "containerPosition": "header",
                     "leftMenuItems": [
                         {
+                            "type": "link",
+                            "href": "{'#/map/' + state('resourceParams')?.mapPk}",
+                            "labelId": "gnviewer.backToMap",
+                            "disableIf": "{!state('resourceParams')?.mapPk}"
+                        },
+                        {
                             "type": "plugin",
                             "size": "md",
                             "name": "DetailViewerButton"
@@ -3529,6 +3560,10 @@
                             "type": "plugin",
                             "name": "DeleteResource",
                             "disableIf": "{!context.resourceHasPermission(state('gnResourceData'), 'delete_resourcebase')}"
+                        },
+                        {
+                            "type": "plugin",
+                            "name": "MapViewersCatalog"
                         }
                     ],
                     "rightMenuItems": [
@@ -3718,6 +3753,9 @@
                     "themes": [],
                     "viewerPlugins": []
                 }
+            },
+            {
+                "name": "MapViewersCatalog"
             }
         ]
     }

@@ -354,6 +354,40 @@ export const getGeoAppByPk = (pk) => {
         .then(({ data }) => data.geoapp);
 };
 
+export const getGeoApps = ({
+    q,
+    pageSize = 20,
+    page = 1,
+    sort,
+    ...params
+}) => {
+    return axios
+        .get(
+            parseDevHostname(endpoints[GEOAPPS]), {
+                // axios will format query params array to `key[]=value1&key[]=value2`
+                params: {
+                    ...params,
+                    ...(q && {
+                        search: q,
+                        search_fields: ['title', 'abstract']
+                    }),
+                    ...(sort && { sort: isArray(sort) ? sort : [ sort ]}),
+                    page,
+                    page_size: pageSize
+                },
+                paramsSerializer
+            })
+        .then(({ data }) => {
+            return {
+                totalCount: data.total,
+                isNextPageAvailable: !!data.links.next,
+                resources: (data.geoapps || [])
+                    .map((resource) => {
+                        return resource;
+                    })
+            };
+        });
+};
 
 export const updateGeoApp = (pk, body) => {
     return axios.patch(parseDevHostname(`${endpoints[GEOAPPS]}/${pk}`), body, {
