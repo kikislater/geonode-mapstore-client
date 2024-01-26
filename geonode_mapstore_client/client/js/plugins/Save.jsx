@@ -12,7 +12,6 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { createPlugin } from '@mapstore/framework/utils/PluginsUtils';
 import Message from '@mapstore/framework/components/I18N/Message';
-import { Glyphicon } from 'react-bootstrap';
 import { mapInfoSelector } from '@mapstore/framework/selectors/map';
 import Loader from '@mapstore/framework/components/misc/Loader';
 import Button from '@js/components/Button';
@@ -132,24 +131,6 @@ const ConnectedSaveButton = connect(
 export default createPlugin('Save', {
     component: SavePlugin,
     containers: {
-        BurgerMenu: {
-            name: 'save',
-            position: 30,
-            text: <Message msgId="save"/>,
-            icon: <Glyphicon glyph="floppy-open"/>,
-            action: saveDirectContent,
-            selector: createSelector(
-                isLoggedIn,
-                isNewResource,
-                canEditResource,
-                mapInfoSelector,
-                (loggedIn, isNew, canEdit, mapInfo) => ({
-                    // we should add permList to map pages too
-                    // currently the canEdit is located inside the map info
-                    style: loggedIn && !isNew && (canEdit || mapInfo?.canEdit) ? {} : { display: 'none' }
-                })
-            )
-        },
         ActionNavbar: {
             name: 'Save',
             Component: ConnectedSaveButton

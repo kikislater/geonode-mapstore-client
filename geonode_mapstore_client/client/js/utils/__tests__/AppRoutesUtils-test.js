@@ -61,7 +61,6 @@ describe('Test App Routes Utils', () => {
             datasetEditDataRoute,
             datasetEditStyleRoute,
             mapRoute,
-            mapActionRoute,
             geoStoryRoute,
             documentRoute,
             dashboardRoute,
@@ -83,9 +82,6 @@ describe('Test App Routes Utils', () => {
         expect(mapRoute.path).toEqual([ '/map/:pk' ]);
         expect(mapRoute.name).toEqual('map_viewer');
         expect(mapRoute.shouldNotRequestResources).toEqual(true);
-        expect(mapActionRoute.path).toEqual([ '/map/:pk/:actionType' ]);
-        expect(mapActionRoute.name).toEqual('map_viewer');
-        expect(mapActionRoute.shouldNotRequestResources).toEqual(true);
         expect(geoStoryRoute.path).toEqual(['/geostory/:pk']);
         expect(geoStoryRoute.name).toEqual('geostory_viewer');
         expect(geoStoryRoute.shouldNotRequestResources).toEqual(true);

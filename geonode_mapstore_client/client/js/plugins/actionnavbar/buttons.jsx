@@ -9,7 +9,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import {
-    toggleControl,
     setControlProperty
 } from '@mapstore/framework/actions/controls';
 import {
@@ -22,70 +21,9 @@ import FaIcon from '@js/components/FaIcon';
 import tooltip from '@mapstore/framework/components/misc/enhancers/tooltip';
 import { openQueryBuilder } from '@mapstore/framework/actions/layerFilter';
 import { getSelectedLayer } from '@mapstore/framework/selectors/layers';
-import { newAnnotation } from '@mapstore/framework/plugins/Annotations/actions/annotations';
 import { isDashboardEditing } from '@mapstore/framework/selectors/dashboard';
 import { createWidget } from '@mapstore/framework/actions/widgets';
 // buttons override to use in ActionNavbar for plugin imported from mapstore
-
-export const PrintActionButton = connect(
-    () => ({}),
-    { onClick: toggleControl.bind(null, 'print', null) }
-)(({
-    onClick,
-    variant,
-    size
-}) => {
-    return (
-        <Button
-            variant={variant}
-            size={size}
-            onClick={() => onClick()}
-        >
-            <Message msgId="printbutton" />
-        </Button>
-    );
-});
-
-export const CatalogActionButton = connect(
-    () => ({}),
-    { onClick: setControlProperty.bind(null, 'metadataexplorer', 'enabled', true, true) }
-)(({
-    onClick,
-    variant,
-    size
-}) => {
-
-    return (
-
-        <Button
-            variant={variant}
-            size={size}
-            onClick={() => onClick()}
-        >
-            <Message msgId="catalog.title" />
-        </Button>
-
-    );
-});
-
-export const MeasureActionButton = connect(
-    () => ({}),
-    { onClick: setControlProperty.bind(null, 'measure', 'enabled', true) }
-)(({
-    onClick,
-    variant,
-    size
-}) => {
-    return (
-        <Button
-            variant={variant}
-            size={size}
-            onClick={() => onClick()}
-        >
-            <Message msgId="measureComponent.Measure" />
-        </Button>
-    );
-});
 
 export const FullScreenActionButton = connect(createSelector([
     state => state?.controls?.fullscreen?.enabled || false
@@ -152,25 +90,6 @@ export const FilterLayerActionButton = connect(
             onClick={() => onClick()}
         >
             <Message msgId="gnhome.filter" />
-        </Button>
-    );
-});
-
-export const AnnotationsActionButton = connect(
-    () => ({}),
-    { onClick: newAnnotation }
-)(({
-    onClick,
-    variant,
-    size
-}) => {
-    return (
-        <Button
-            variant={variant}
-            size={size}
-            onClick={() => onClick()}
-        >
-            <Message msgId="annotationsbutton" />
         </Button>
     );
 });

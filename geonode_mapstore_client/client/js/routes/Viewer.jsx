@@ -68,7 +68,8 @@ function ViewerRoute({
     siteName,
     resourceType,
     loadingConfig,
-    configError
+    configError,
+    loaderStyle
 }) {
 
     const { pk } = match.params || {};
@@ -91,7 +92,7 @@ function ViewerRoute({
                 });
             }
         }
-    }, [pending, match.params]);
+    }, [pending, pk]);
 
     const loading = loadingConfig || pending;
     const parsedPlugins = useMemo(() => ({ ...loadedPlugins, ...getPlugins(plugins) }), [loadedPlugins]);
@@ -133,7 +134,7 @@ function ViewerRoute({
                 contentURL={resource?.detail_url}
                 content={resource?.abstract}
             />}
-            {!loading && <ConnectedPluginsContainer
+            <ConnectedPluginsContainer
                 key={className}
                 id={className}
                 className={className}
@@ -142,8 +143,8 @@ function ViewerRoute({
                 plugins={parsedPlugins}
                 allPlugins={plugins}
                 params={params}
-            />}
-            {loading && Loader && <Loader />}
+            />
+            {loading && Loader && <Loader style={loaderStyle}/>}
             {configError && <MainEventView msgId={configError}/>}
         </>
     );

@@ -28,6 +28,10 @@
             .background-color-var(@theme-vars[main-bg], true);
         }
     }
+    #mapstore-sidebar-menu-container {
+        .color-var(@theme-vars[main-color]);
+        .background-color-var(@theme-vars[main-bg]);
+    }
 }
 
 // **************
@@ -279,13 +283,6 @@ div#mapstore-globalspinner {
     }
 }
 
-// this override is needed to ensure the identify is correctly placed on close
-// !important flag is needed to override inline style
-#identify-container {
-    width: 100% !important; 
-    transform: unset !important;
-}
-
 // we need to override the styles of the widgets
 // because we are using rem unit of measure inside geonode mapstore client
 // to compute correctly we need to overrides the rules inside mapstore
@@ -435,12 +432,11 @@ div#mapstore-globalspinner {
     }
 }
 
-// move the toolbar to the right because we are not using sidebar
-.ms-measure-toolbar {
-    right: 4px;
-}
-
 // visualize correctly steps in context creator
 .ms-stepper-container {
     position: absolute;
+}
+
+.ms-map-views {
+    left: 44px;
 }

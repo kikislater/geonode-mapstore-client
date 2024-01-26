@@ -8,11 +8,7 @@
 import omit from 'lodash/omit';
 import uniq from 'lodash/uniq';
 import {
-    PrintActionButton,
-    CatalogActionButton,
-    MeasureActionButton,
     LayerDownloadActionButton,
-    AnnotationsActionButton,
     FullScreenActionButton,
     FilterLayerActionButton,
     AddWidgetActionButton
@@ -95,23 +91,7 @@ export const plugins = {
     ),
     MetadataExplorerPlugin: toModulePlugin(
         'MetadataExplorer',
-        () => import(/* webpackChunkName: 'plugins/metadata-explorer' */ '@mapstore/framework/plugins/MetadataExplorer'),
-        {
-            overrides: {
-                containers: {
-                    ActionNavbar: {
-                        name: 'Catalog',
-                        Component: CatalogActionButton,
-                        priority: 1,
-                        doNotHide: true
-                    },
-                    TOC: {
-                        priority: 1,
-                        doNotHide: true
-                    }
-                }
-            }
-        }
+        () => import(/* webpackChunkName: 'plugins/metadata-explorer' */ '@mapstore/framework/plugins/MetadataExplorer')
     ),
     QueryPanelPlugin: toModulePlugin(
         'QueryPanel',
@@ -158,17 +138,7 @@ export const plugins = {
     ),
     MeasurePlugin: toModulePlugin(
         'Measure',
-        () => import(/* webpackChunkName: 'plugins/measure-plugin' */ '@mapstore/framework/plugins/Measure'),
-        {
-            overrides: {
-                containers: {
-                    ActionNavbar: {
-                        name: 'Measure',
-                        Component: MeasureActionButton
-                    }
-                }
-            }
-        }
+        () => import(/* webpackChunkName: 'plugins/measure-plugin' */ '@mapstore/framework/plugins/Measure')
     ),
     FullScreenPlugin: toModulePlugin(
         'FullScreen',
@@ -193,9 +163,9 @@ export const plugins = {
         'OmniBar',
         () => import(/* webpackChunkName: 'plugins/omni-bar-plugin' */ '@mapstore/framework/plugins/OmniBar')
     ),
-    BurgerMenuPlugin: toModulePlugin(
-        'BurgerMenu',
-        () => import(/* webpackChunkName: 'plugins/burger-menu-plugin' */ '@mapstore/framework/plugins/BurgerMenu')
+    SidebarMenuPlugin: toModulePlugin(
+        'SidebarMenu',
+        () => import(/* webpackChunkName: 'plugins/sidebar-menu-plugin' */ '@mapstore/framework/plugins/SidebarMenu')
     ),
     GeoStoryPlugin: toModulePlugin(
         'GeoStory',
@@ -283,12 +253,13 @@ export const plugins = {
         {
             overrides: {
                 containers: {
+                    /*
                     ActionNavbar: {
                         name: 'Print',
                         Component: PrintActionButton,
                         priority: 5,
                         doNotHide: true
-                    }
+                    }*/
                 }
             }
         }
@@ -374,11 +345,13 @@ export const plugins = {
         {
             overrides: {
                 containers: {
+                    /*
                     ActionNavbar: {
                         name: 'Annotations',
                         Component: AnnotationsActionButton,
                         doNotHide: true
                     }
+                    */
                 }
             }
         }
@@ -390,6 +363,26 @@ export const plugins = {
     ContextCreatorPlugin: toModulePlugin(
         'ContextCreator',
         () => import(/* webpackChunkName: 'plugins/context-creator' */ '@mapstore/framework/plugins/ContextCreator')
+    ),
+    UserExtensionsPlugin: toModulePlugin(
+        'UserExtensions',
+        () => import(/* webpackChunkName: 'plugins/user-extensions' */ '@mapstore/framework/plugins/UserExtensions')
+    ),
+    StreetViewPlugin: toModulePlugin(
+        'StreetView',
+        () => import(/* webpackChunkName: 'plugins/street-view' */ '@mapstore/framework/plugins/StreetView')
+    ),
+    MapViewsPlugin: toModulePlugin(
+        'MapViews',
+        () => import(/* webpackChunkName: 'plugins/map-views' */ '@mapstore/framework/plugins/MapViews')
+    ),
+    LongitudinalProfileToolPlugin: toModulePlugin(
+        'LongitudinalProfileTool',
+        () => import(/* webpackChunkName: 'plugins/longitudinal-profile-tool' */ '@mapstore/framework/plugins/LongitudinalProfileTool')
+    ),
+    GeoProcessingPlugin: toModulePlugin(
+        'GeoProcessing',
+        () => import(/* webpackChunkName: 'plugins/geo-processing' */ '@mapstore/framework/plugins/GeoProcessing')
     ),
     DeleteResourcePlugin: toModulePlugin(
         'DeleteResource',

@@ -624,15 +624,7 @@
                         },
                         {
                             "type": "plugin",
-                            "name": "Print"
-                        },
-                        {
-                            "type": "plugin",
                             "name": "FilterLayer"
-                        },
-                        {
-                            "type": "plugin",
-                            "name": "Measure"
                         },
                         {
                             "type": "link",
@@ -1193,6 +1185,9 @@
             },
             {
                 "name": "Legend"
+            },
+            {
+                "name": "SidebarMenu"
             }
         ],
         "dataset_edit_data_viewer": [
@@ -1493,12 +1488,6 @@
                                     "type": "link",
                                     "href": "{context.getMetadataDetailUrl(state('gnResourceData'))}",
                                     "labelId": "gnviewer.viewMetadata"
-                                },
-                                {
-                                    "type": "link",
-                                    "href": "{'#/map/' + state('resourceParams')?.pk + '/preview/'}",
-                                    "labelId": "gnviewer.previewCustomViewer",
-                                    "disableIf": "{!(state('resourceParams')?.hasViewer && state('resourceParams')?.actionType !== 'preview')}"
                                 }
                             ]
                         },
@@ -1516,31 +1505,12 @@
                                     "type": "link",
                                     "href": "{'#/viewer/' + (state('resourceParams')?.appPk || 'new') + '/map/' + state('gnResourceData')?.pk}",
                                     "labelId": "gnviewer.manageViewerConfiguration"
-                                },
-                                {
-                                    "type": "link",
-                                    "href": "{'#/map/' + state('resourceParams')?.pk}",
-                                    "labelId": "gnviewer.editMapConfiguration",
-                                    "disableIf": "{state('resourceParams')?.actionType !== 'preview'}"
                                 }
                             ]
                         },
                         {
                             "type": "plugin",
                             "name": "Share"
-                        },
-                        {
-                            "type": "plugin",
-                            "name": "Print"
-                        },
-                        {
-                            "type": "plugin",
-                            "name": "Measure"
-                        },
-                        {
-                            "type": "plugin",
-                            "name": "Annotations",
-                            "disableIf": "{!context.resourceHasPermission(state('gnResourceData'), 'change_resourcebase') && !state('isNewResource')}"
                         },
                         {
                             "type": "plugin",
@@ -1562,6 +1532,7 @@
                 }
             },
             {
+                "mandatory": true,
                 "name": "DeleteResource"
             },
             {
@@ -2077,6 +2048,7 @@
                 "name": "Notifications"
             },
             {
+                "mandatory": true,
                 "name": "Share",
                 "cfg": {
                     "containerPosition": "rightOverlay"
@@ -2116,6 +2088,7 @@
                 "name": "FitBounds"
             },
             {
+                "mandatory": true,
                 "name": "DatasetsCatalog"
             },
             {
@@ -2144,6 +2117,9 @@
                     "editingAllowedRoles": null,
                     "enableSetDefaultStyle": true
                 }
+            },
+            {
+                "name": "SidebarMenu"
             }
         ],
         "geostory_viewer": [
@@ -3743,8 +3719,7 @@
                     "backToPageDestRoute": "/context-manager",
                     "backToPageConfirmationMessage": "contextCreator.undo",
                     "availableSteps": [
-                        "configure-plugins",
-                        "configure-themes"
+                        "configure-plugins"
                     ],
                     "hideUploadExtension": true,
                     "hideSaveButton": true,

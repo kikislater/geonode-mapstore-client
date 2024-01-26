@@ -212,7 +212,7 @@ const resourceTypes = {
                     return Observable.of(
                         configureMap(mapConfig),
                         setControlProperty('toolbar', 'expanded', false),
-                        setContext(mapViewerResource ? mapViewerResource.data : {}),
+                        setContext(mapViewerResource ? mapViewerResource.data : null),
                         setResource(resource),
                         setResourceId(pk),
                         setResourcePathParameters({

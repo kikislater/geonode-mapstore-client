@@ -117,17 +117,6 @@ export const CATALOGUE_ROUTES = [
         shouldNotRequestResources: true
     },
     {
-        name: 'map_viewer',
-        path: [
-            '/map/:pk/:actionType'
-        ],
-        pageConfig: {
-            resourceType: ResourceTypes.MAP
-        },
-        component: appRouteComponentTypes.MAP_VIEWER,
-        shouldNotRequestResources: true
-    },
-    {
         name: 'geostory_viewer',
         path: [
             '/geostory/:pk'

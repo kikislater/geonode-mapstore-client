@@ -18,13 +18,10 @@ import {
     contextThemeSelector,
     contextCustomVariablesEnabledSelector
 } from '@mapstore/framework/selectors/context';
-import { canEditResource } from '@js/selectors/resource';
-import ContextTheme from '@mapstore/framework/components/theme/ContextTheme';
 import { getConfigProp } from '@mapstore/framework/utils/ConfigUtils';
 import { getGeoNodeConfig } from '@js/utils/APIUtils';
 import { ResourceTypes } from '@js/utils/ResourceUtils';
 
-import defaultThemeVars from "!!raw-loader!../../themes/geonode/less/_variables.less";
 const DEFAULT_PLUGINS_CONFIG = [];
 
 function getPluginsConfiguration(name, pluginsConfig) {
@@ -47,47 +44,42 @@ function MapViewerRoute({
     viewerPluginsConfig,
     theme,
     customVariablesEnabled,
-    canEdit,
     embed,
     resource,
     hasViewer,
     ...props
 }) {
 
-    const { pk, actionType } = props?.match?.params || {};
-    const editing = canEdit && actionType !== 'preview';
-    const pluginsConfig = hasViewer === true
-        ? embed
-            ? getPluginsConfiguration('desktop', viewerPluginsConfig)
-            : (resource?.pk === pk || pk === 'new')
-                ? uniqBy([
-                    ...getPluginsConfiguration(name, propPluginsConfig)
-                        .filter((plugin) => !editing ? !!plugin.mandatory : true),
-                    ...((viewerPluginsConfig)
-                        ? getPluginsConfiguration('desktop', viewerPluginsConfig)
-                        : [])
-                ], 'name')
-                : []
-        : hasViewer === false
-            ? getPluginsConfiguration(name, propPluginsConfig)
-            : [];
+    const { pk } = props?.match?.params || {};
+
+    const selectPluginsConfig = () => {
+        if (hasViewer === true && embed) {
+            return getPluginsConfiguration('desktop', viewerPluginsConfig);
+        }
+        if (hasViewer === true && (resource?.pk === pk || pk === 'new')) {
+            return uniqBy([
+                ...getPluginsConfiguration(name, propPluginsConfig)
+                    .filter((plugin) => !!plugin.mandatory),
+                ...((viewerPluginsConfig)
+                    ? getPluginsConfiguration('desktop', viewerPluginsConfig)
+                    : [])
+            ], 'name');
+        }
+        if (hasViewer === false) {
+            return getPluginsConfiguration(name, propPluginsConfig);
+        }
+        return DEFAULT_PLUGINS_CONFIG;
+    };
+
+    const pluginsConfig = selectPluginsConfig();
+
     return (<>
-        <ContextTheme
-            theme={{
-                ...theme,
-                variables: Object.keys(theme?.variables || {}).reduce((acc, key) => {
-                    return {
-                        ...acc,
-                        [key.replace('ms-', 'gn-')]: theme.variables[key]
-                    };
-                }, {})
-            }}
-            customVariablesEnabled={customVariablesEnabled}
-            lessCssInput={defaultThemeVars + ".get-root-css-variables(@gn-theme-vars);"}
-        />
         <Viewer
             name={name}
             pluginsConfig={pluginsConfig}
+            loaderStyle={{
+                opacity: 0.5
+            }}
             {...props}
         />
     </>);
@@ -99,17 +91,15 @@ const ConnectedMapViewerRoute = connect(
         contextMonitoredStateSelector,
         contextThemeSelector,
         contextCustomVariablesEnabledSelector,
-        canEditResource,
         state => state?.gnresource?.data,
         state => state?.gnresource?.params?.hasViewer,
         state => state?.gnresource?.loadingResourceConfig,
         state => state?.gnresource?.configError
-    ], (viewerPluginsConfig, viewerMonitoredState, theme, customVariablesEnabled, canEdit, resource, hasViewer, loadingConfig, configError) => ({
+    ], (viewerPluginsConfig, viewerMonitoredState, theme, customVariablesEnabled, resource, hasViewer, loadingConfig, configError) => ({
         viewerPluginsConfig,
         viewerMonitoredState,
         theme,
         customVariablesEnabled,
-        canEdit,
         resource,
         hasViewer,
         loadingConfig,
