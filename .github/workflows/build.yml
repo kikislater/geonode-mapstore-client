@@ -9,7 +9,7 @@ concurrency:
 on:
   # Triggers the workflow on push events but only for the master branch
   push:
-    branches: [ master ]
+    branches: [ master,mapviewer-resource-built ]
     paths: 
       - "geonode_mapstore_client/client/**"
       - "!geonode_mapstore_client/client/version.txt"
