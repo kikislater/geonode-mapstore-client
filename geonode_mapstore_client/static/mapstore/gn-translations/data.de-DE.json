@@ -372,6 +372,7 @@
             "manageViewerConfiguration": "Viewer-Konfiguration verwalten",
             "previewCustomViewer": "Vorschau des benutzerdefinierten Viewers",
             "editMapConfiguration": "Kartenkonfiguration bearbeiten",
+            "resource": "Ressource",
             "deleteResourceWarning": {
                 "mapviewer": "Dieser Viewer könnte von einigen Karten verwendet werden. Sie können die Liste der Karten auf der Registerkarte „Verknüpfte Ressourcen“ dieses Kartenviewers anzeigen"
             },

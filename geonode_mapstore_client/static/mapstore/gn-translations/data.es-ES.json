@@ -371,6 +371,7 @@
             "manageViewerConfiguration": "Administrar la configuración del visor",
             "previewCustomViewer": "Vista previa del visor personalizado",
             "editMapConfiguration": "Editar configuración del mapa",
+            "resource": "Recurso",
             "deleteResourceWarning": {
                 "mapviewer": "Este visor podría ser utilizado por algunos mapas. Puede ver la lista de mapas dentro de la pestaña Recursos vinculados de este visor de mapas."
             },

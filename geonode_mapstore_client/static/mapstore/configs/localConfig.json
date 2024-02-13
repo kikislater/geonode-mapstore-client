@@ -527,7 +527,7 @@
                             "name": "DetailViewerButton"
                         },
                         {
-                            "labelId": "gnviewer.save",
+                            "labelId": "gnviewer.resource",
                             "showPendingChangesIcon": true,
                             "disableIf": "{!state('isNewResource') && !context.resourceHasPermission(state('gnResourceData'), 'change_resourcebase') && (!context.canCopyResource(state('gnResourceData'), state('user')) || !state('selectedLayerPermissions').includes('download_resourcebase'))}",
                             "type": "dropdown",
@@ -540,6 +540,23 @@
                                     "type": "plugin",
                                     "name": "SaveAs",
                                     "disableIf": "{!state('selectedLayerPermissions').includes('download_resourcebase') || !context.resourceHasPermission(state('gnResourceData'), 'download_resourcebase')}"
+                                },
+                                {
+                                    "type": "divider",
+                                    "disableIf": "{state('isNewResource')}"
+                                },
+                                {
+                                    "type": "plugin",
+                                    "name": "Share"
+                                },
+                                {
+                                    "type": "divider",
+                                    "disableIf": "{state('isNewResource') || !context.resourceHasPermission(state('gnResourceData'), 'delete_resourcebase')}"
+                                },
+                                {
+                                    "type": "plugin",
+                                    "name": "DeleteResource",
+                                    "disableIf": "{!context.resourceHasPermission(state('gnResourceData'), 'delete_resourcebase')}"
                                 }
                             ]
                         },
@@ -600,10 +617,6 @@
                             ]
                         },
                         {
-                            "type": "plugin",
-                            "name": "Share"
-                        },
-                        {
                             "labelId": "gnviewer.download",
                             "disableIf": "{!state('selectedLayerPermissions').includes('download_resourcebase') || context.isDocumentExternalSource(state('gnResourceData'))}",
                             "type": "dropdown",
@@ -623,6 +636,10 @@
                             ]
                         },
                         {
+                            "type": "divider",
+                            "disableIf": "{state('isNewResource')}"
+                        },
+                        {
                             "type": "plugin",
                             "name": "FilterLayer"
                         },
@@ -631,11 +648,6 @@
                             "href": "{'#/map/new?gn-dataset=' + (state('gnResourceData') || {}).pk}",
                             "labelId": "gnviewer.createMap",
                             "disableIf": "{!(state('user') && state('user').perms && state('user').perms.includes('add_resource'))}"
-                        },
-                        {
-                            "type": "plugin",
-                            "name": "DeleteResource",
-                            "disableIf": "{!context.resourceHasPermission(state('gnResourceData'), 'delete_resourcebase')}"
                         }
                     ],
                     "rightMenuItems": [
@@ -1460,7 +1472,7 @@
                             "name": "DetailViewerButton"
                         },
                         {
-                            "labelId": "gnviewer.save",
+                            "labelId": "gnviewer.resource",
                             "showPendingChangesIcon": true,
                             "disableIf": "{!state('isNewResource') && !context.resourceHasPermission(state('gnResourceData'), 'change_resourcebase') && !context.canCopyResource(state('gnResourceData'), state('user'))}",
                             "type": "dropdown",
@@ -1472,6 +1484,23 @@
                                 {
                                     "type": "plugin",
                                     "name": "SaveAs"
+                                },
+                                {
+                                    "type": "divider",
+                                    "disableIf": "{state('isNewResource')}"
+                                },
+                                {
+                                    "type": "plugin",
+                                    "name": "Share"
+                                },
+                                {
+                                    "type": "divider",
+                                    "disableIf": "{state('isNewResource') || !context.resourceHasPermission(state('gnResourceData'), 'delete_resourcebase')}"
+                                },
+                                {
+                                    "type": "plugin",
+                                    "name": "DeleteResource",
+                                    "disableIf": "{!context.resourceHasPermission(state('gnResourceData'), 'delete_resourcebase')}"
                                 }
                             ]
                         },
@@ -1509,18 +1538,13 @@
                             ]
                         },
                         {
-                            "type": "plugin",
-                            "name": "Share"
+                            "type": "divider",
+                            "disableIf": "{!context.resourceHasPermission(state('gnResourceData'), 'change_resourcebase') && !state('isNewResource')}"
                         },
                         {
                             "type": "plugin",
                             "name": "DatasetsCatalog",
                             "disableIf": "{!context.resourceHasPermission(state('gnResourceData'), 'change_resourcebase') && !state('isNewResource')}"
-                        },
-                        {
-                            "type": "plugin",
-                            "name": "DeleteResource",
-                            "disableIf": "{!context.resourceHasPermission(state('gnResourceData'), 'delete_resourcebase')}"
                         }
                     ],
                     "rightMenuItems": [
@@ -2134,7 +2158,7 @@
                             "name": "DetailViewerButton"
                         },
                         {
-                            "labelId": "gnviewer.save",
+                            "labelId": "gnviewer.resource",
                             "showPendingChangesIcon": true,
                             "disableIf": "{!state('isNewResource') && !context.resourceHasPermission(state('gnResourceData'), 'change_resourcebase') && !context.canCopyResource(state('gnResourceData'), state('user'))}",
                             "type": "dropdown",
@@ -2146,6 +2170,28 @@
                                 {
                                     "type": "plugin",
                                     "name": "SaveAs"
+                                },
+                                {
+                                    "type": "divider",
+                                    "disableIf": "{state('isNewResource')}"
+                                },
+                                {
+                                    "type": "plugin",
+                                    "name": "Share"
+                                },
+                                {
+                                    "name": "Sync",
+                                    "type": "plugin",
+                                    "disableIf": "{!context.resourceHasPermission(state('gnResourceData'), 'change_resourcebase')}"
+                                },
+                                {
+                                    "type": "divider",
+                                    "disableIf": "{state('isNewResource') || !context.resourceHasPermission(state('gnResourceData'), 'delete_resourcebase')}"
+                                },
+                                {
+                                    "type": "plugin",
+                                    "name": "DeleteResource",
+                                    "disableIf": "{!context.resourceHasPermission(state('gnResourceData'), 'delete_resourcebase')}"
                                 }
                             ]
                         },
@@ -2176,20 +2222,6 @@
                                     "labelId": "gnviewer.editMetadata"
                                 }
                             ]
-                        },
-                        {
-                            "type": "plugin",
-                            "name": "Share"
-                        },
-                        {
-                            "name": "Sync",
-                            "type": "plugin",
-                            "disableIf": "{!context.resourceHasPermission(state('gnResourceData'), 'change_resourcebase')}"
-                        },
-                        {
-                            "type": "plugin",
-                            "name": "DeleteResource",
-                            "disableIf": "{!context.resourceHasPermission(state('gnResourceData'), 'delete_resourcebase')}"
                         }
                     ],
                     "rightMenuItems": [
@@ -2447,7 +2479,7 @@
                             "name": "DetailViewerButton"
                         },
                         {
-                            "labelId": "gnviewer.save",
+                            "labelId": "gnviewer.resource",
                             "type": "dropdown",
                             "showPendingChangesIcon": true,
                             "disableIf": "{!context.resourceHasPermission(state('gnResourceData'), 'change_resourcebase') && (!context.canCopyResource(state('gnResourceData'), state('user')) || !context.resourceHasPermission(state('gnResourceData'), 'download_resourcebase'))}",
@@ -2460,6 +2492,22 @@
                                     "type": "plugin",
                                     "name": "SaveAs",
                                     "disableIf": "{!context.resourceHasPermission(state('gnResourceData'), 'download_resourcebase')}"
+                                },
+                                {
+                                    "type": "divider"
+                                },
+                                {
+                                    "type": "plugin",
+                                    "name": "Share"
+                                },
+                                {
+                                    "type": "divider",
+                                    "disableIf": "{!context.resourceHasPermission(state('gnResourceData'), 'delete_resourcebase')}"
+                                },
+                                {
+                                    "type": "plugin",
+                                    "name": "DeleteResource",
+                                    "disableIf": "{!context.resourceHasPermission(state('gnResourceData'), 'delete_resourcebase')}"
                                 }
                             ]
                         },
@@ -2492,17 +2540,8 @@
                         },
                         {
                             "type": "plugin",
-                            "name": "Share"
-                        },
-                        {
-                            "type": "plugin",
                             "name": "DownloadResource",
                             "disableIf": "{!context.resourceHasPermission(state('gnResourceData'), 'download_resourcebase')}"
-                        },
-                        {
-                            "type": "plugin",
-                            "name": "DeleteResource",
-                            "disableIf": "{!context.resourceHasPermission(state('gnResourceData'), 'delete_resourcebase')}"
                         }
                     ],
                     "rightMenuItems": [
@@ -2690,7 +2729,7 @@
                             "name": "DetailViewerButton"
                         },
                         {
-                            "labelId": "gnviewer.save",
+                            "labelId": "gnviewer.resource",
                             "type": "dropdown",
                             "showPendingChangesIcon": true,
                             "disableIf": "{!state('isNewResource') && !context.resourceHasPermission(state('gnResourceData'), 'change_resourcebase') && !context.canCopyResource(state('gnResourceData'), state('user'))}",
@@ -2702,6 +2741,28 @@
                                 {
                                     "type": "plugin",
                                     "name": "SaveAs"
+                                },
+                                {
+                                    "type": "divider",
+                                    "disableIf": "{state('isNewResource')}"
+                                },
+                                {
+                                    "type": "plugin",
+                                    "name": "Share"
+                                },
+                                {
+                                    "name": "Sync",
+                                    "type": "plugin",
+                                    "disableIf": "{!context.resourceHasPermission(state('gnResourceData'), 'change_resourcebase')}"
+                                },
+                                {
+                                    "type": "divider",
+                                    "disableIf": "{state('isNewResource') || !context.resourceHasPermission(state('gnResourceData'), 'delete_resourcebase')}"
+                                },
+                                {
+                                    "type": "plugin",
+                                    "name": "DeleteResource",
+                                    "disableIf": "{!context.resourceHasPermission(state('gnResourceData'), 'delete_resourcebase')}"
                                 }
                             ]
                         },
@@ -2734,23 +2795,13 @@
                             ]
                         },
                         {
-                            "type": "plugin",
-                            "name": "Share"
-                        },
-                        {
-                            "name": "Sync",
-                            "type": "plugin",
+                            "type": "divider",
                             "disableIf": "{!context.resourceHasPermission(state('gnResourceData'), 'change_resourcebase')}"
                         },
                         {
                             "name": "DashboardEditor",
                             "type": "plugin",
                             "disableIf": "{!state('isNewResource') && !context.resourceHasPermission(state('gnResourceData'), 'change_resourcebase')}"
-                        },
-                        {
-                            "type": "plugin",
-                            "name": "DeleteResource",
-                            "disableIf": "{!context.resourceHasPermission(state('gnResourceData'), 'delete_resourcebase')}"
                         }
                     ],
                     "rightMenuItems": [
@@ -3480,7 +3531,7 @@
                             "name": "DetailViewerButton"
                         },
                         {
-                            "labelId": "gnviewer.save",
+                            "labelId": "gnviewer.resource",
                             "showPendingChangesIcon": true,
                             "disableIf": "{!state('isNewResource') && !context.resourceHasPermission(state('gnResourceData'), 'change_resourcebase') && !context.canCopyResource(state('gnResourceData'), state('user'))}",
                             "type": "dropdown",
@@ -3492,6 +3543,23 @@
                                 {
                                     "type": "plugin",
                                     "name": "SaveAs"
+                                },
+                                {
+                                    "type": "divider",
+                                    "disableIf": "{state('isNewResource')}"
+                                },
+                                {
+                                    "type": "plugin",
+                                    "name": "Share"
+                                },
+                                {
+                                    "type": "divider",
+                                    "disableIf": "{state('isNewResource') || !context.resourceHasPermission(state('gnResourceData'), 'delete_resourcebase')}"
+                                },
+                                {
+                                    "type": "plugin",
+                                    "name": "DeleteResource",
+                                    "disableIf": "{!context.resourceHasPermission(state('gnResourceData'), 'delete_resourcebase')}"
                                 }
                             ]
                         },
@@ -3524,18 +3592,7 @@
                             ]
                         },
                         {
-                            "type": "plugin",
-                            "name": "Share"
-                        },
-                        {
-                            "name": "Sync",
-                            "type": "plugin",
-                            "disableIf": "{!context.resourceHasPermission(state('gnResourceData'), 'change_resourcebase')}"
-                        },
-                        {
-                            "type": "plugin",
-                            "name": "DeleteResource",
-                            "disableIf": "{!context.resourceHasPermission(state('gnResourceData'), 'delete_resourcebase')}"
+                            "type": "divider"
                         },
                         {
                             "type": "plugin",

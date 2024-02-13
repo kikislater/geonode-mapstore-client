@@ -372,6 +372,7 @@
             "manageViewerConfiguration": "Gérer la configuration de la visionneuse",
             "previewCustomViewer": "Aperçu de la visionneuse personnalisée",
             "editMapConfiguration": "Modifier la configuration de la carte",
+            "resource": "Ressource",
             "deleteResourceWarning": {
                 "mapviewer": "Cette visionneuse pourrait être utilisée par certaines cartes. Vous pouvez afficher la liste des cartes dans l'onglet Ressources liées de cette visionneuse de cartes."
             },
