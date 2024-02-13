@@ -80,6 +80,6 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ steps.generate-token.outputs.token }}
-          base: "master"
+          base: ${{ github.ref_name }}
           title: "new client build"
           body: "Automated client build from GeoNode Client CI"
