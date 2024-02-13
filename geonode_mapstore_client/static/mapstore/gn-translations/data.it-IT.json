@@ -374,6 +374,9 @@
             "manageViewerConfiguration": "Gestisci la configurazione del visualizzatore",
             "previewCustomViewer": "Anteprima del visualizzatore personalizzato",
             "editMapConfiguration": "Modifica configurazione della mappa",
+            "deleteResourceWarning": {
+                "mapviewer": "Questo visualizzatore potrebbe essere utilizzato da alcune mappe. Puoi visualizzare l'elenco delle mappe nella scheda Risorse collegate di questo visualizzatore di mappe"
+            },
             "unadvertised": "La risorsa non è pubblicizzata. E' nascosta dal catalogo e dai risultati della ricerca"
         }
     }

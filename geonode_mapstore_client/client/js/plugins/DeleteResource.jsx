@@ -25,11 +25,28 @@ import Loader from '@mapstore/framework/components/misc/Loader';
 import controls from '@mapstore/framework/reducers/controls';
 import { isLoggedIn } from '@mapstore/framework/selectors/security';
 import { hashLocationToHref } from '@js/utils/SearchUtils';
+import { ResourceTypes } from '@js/utils/ResourceUtils';
 
 const simulateAClick = (href) => {
     const a = document.createElement('a');
     a.setAttribute('href', href);
     a.click();
+};
+
+const linkableResources = [ResourceTypes.VIEWER]; // dataset will be added in the future
+
+const WarningLinkedResource = ({resources = []}) => {
+    const isLinkableResource = resources.some(res => linkableResources.includes(res.resource_type));
+    if (isLinkableResource) {
+        const [{resource_type: resourceType}] = resources;
+        return (
+            <div className="gn-resource-delete-warning">
+                <FaIcon className="warning" name="warning"/> &nbsp;
+                <Message msgId={`gnviewer.deleteResourceWarning.${resourceType}`}/>
+            </div>
+        );
+    }
+    return null;
 };
 
 /**
@@ -106,6 +123,7 @@ function DeleteResourcePlugin({
                         );
                     })}
                 </ul>
+                <WarningLinkedResource resources={resources}/>
                 {loading && <div
                     style={{
                         position: 'absolute',

@@ -342,6 +342,9 @@
             "manageViewerConfiguration": "Manage viewer configuration",
             "previewCustomViewer": "Preview custom viewer",
             "editMapConfiguration": "Edit map configuration",
+            "deleteResourceWarning": {
+                "mapviewer": "This viewer could be used by some maps. You can view the list of maps inside the Linked Resources tab of this map viewer"
+            },
             "unadvertised": "Resource is not advertised. It is hidden from the catalog and search results"
         }
     }
