@@ -341,7 +341,8 @@
             "createNewViewer": "Create new viewer",
             "manageViewerConfiguration": "Manage viewer configuration",
             "previewCustomViewer": "Preview custom viewer",
-            "editMapConfiguration": "Edit map configuration"
+            "editMapConfiguration": "Edit map configuration",
+            "unadvertised": "Resource is not advertised. It is hidden from the catalog and search results"
         }
     }
 }

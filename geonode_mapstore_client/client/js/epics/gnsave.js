@@ -127,6 +127,7 @@ const SaveAPI = {
                 'name': body.title + ' ' + uuid(),
                 'owner': user.name,
                 'resource_type': ResourceTypes.VIEWER,
+                'advertised': false,
                 ...body
             });
     }

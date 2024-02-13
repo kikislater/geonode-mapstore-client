@@ -371,7 +371,8 @@
             "createNewViewer": "Neuen Viewer erstellen",
             "manageViewerConfiguration": "Viewer-Konfiguration verwalten",
             "previewCustomViewer": "Vorschau des benutzerdefinierten Viewers",
-            "editMapConfiguration": "Kartenkonfiguration bearbeiten"
+            "editMapConfiguration": "Kartenkonfiguration bearbeiten",
+            "unadvertised": "Ressource wird nicht beworben. Es ist im Katalog und in den Suchergebnissen ausgeblendet"
         }
     }
 }

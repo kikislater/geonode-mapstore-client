@@ -370,7 +370,8 @@
             "createNewViewer": "Crear nuevo visor",
             "manageViewerConfiguration": "Administrar la configuración del visor",
             "previewCustomViewer": "Vista previa del visor personalizado",
-            "editMapConfiguration": "Editar configuración del mapa"
+            "editMapConfiguration": "Editar configuración del mapa",
+            "unadvertised": "El recurso no se anuncia. Está oculto en el catálogo y en los resultados de búsqueda."
         }
     }
 }

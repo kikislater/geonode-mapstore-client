@@ -371,7 +371,8 @@
             "createNewViewer": "Créer une nouvelle visionneuse",
             "manageViewerConfiguration": "Gérer la configuration de la visionneuse",
             "previewCustomViewer": "Aperçu de la visionneuse personnalisée",
-            "editMapConfiguration": "Modifier la configuration de la carte"
+            "editMapConfiguration": "Modifier la configuration de la carte",
+            "unadvertised": "La ressource n'est pas annoncée. Il est masqué du catalogue et des résultats de recherche"
         }
     }
 }

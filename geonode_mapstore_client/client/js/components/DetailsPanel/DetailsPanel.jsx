@@ -24,6 +24,7 @@ import { getUserName } from '@js/utils/SearchUtils';
 import { useInView } from 'react-intersection-observer';
 import DetailsResourcePreview from './DetailsResourcePreview';
 import DetailsThumbnail from './DetailsThumbnail';
+import Unadvertised from '@js/components/Unadvertised';
 
 const CopyToClipboard = tooltip(CopyToClipboardCmp);
 
@@ -112,6 +113,7 @@ const DetailsPanelTools = ({
 
     return (
         <div className="gn-details-panel-tools">
+            <Unadvertised resource={resource}/>
             <ResourceStatus resource={resource} />
             {enableFavorite &&
             <Button

@@ -389,6 +389,10 @@ function ResourcesGrid({
             facet: 'user'
         },
         {
+            type: 'select',
+            facet: "group"
+        },
+        {
             type: "accordion",
             style: "facet", // style can be facet or filter (checkbox)
             facet: "thesaurus"

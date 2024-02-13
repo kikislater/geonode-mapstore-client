@@ -373,7 +373,8 @@
             "createNewViewer": "Crea un nuovo visualizzatore",
             "manageViewerConfiguration": "Gestisci la configurazione del visualizzatore",
             "previewCustomViewer": "Anteprima del visualizzatore personalizzato",
-            "editMapConfiguration": "Modifica configurazione della mappa"
+            "editMapConfiguration": "Modifica configurazione della mappa",
+            "unadvertised": "La risorsa non è pubblicizzata. E' nascosta dal catalogo e dai risultati della ricerca"
         }
     }
 }

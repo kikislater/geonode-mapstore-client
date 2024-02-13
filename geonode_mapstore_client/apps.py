@@ -11,14 +11,15 @@
 import os
 
 from django.views.generic import TemplateView
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.apps import apps, AppConfig as BaseAppConfig
 
 
 def run_setup_hooks(*args, **kwargs):
     from geonode.urls import urlpatterns
     from django.conf import settings
-    from django.conf.urls import url, include
+    from django.conf.urls import include
+    from django.urls import re_path
     from geonode.api.urls import router
     from geonode.security.permissions import VIEW_PERMISSIONS, OWNER_PERMISSIONS
     from geonode.groups.conf import settings as groups_settings
@@ -76,14 +77,14 @@ def run_setup_hooks(*args, **kwargs):
         pass
 
     urlpatterns += [
-        url(
+        re_path(
             r"^catalogue/",
             TemplateView.as_view(
                 template_name="geonode-mapstore-client/catalogue.html"
             ),
         ),
         # required, otherwise will raise no-lookup errors to be analysed
-        url(r"^api/v2/", include(router.urls)),
+        re_path(r"^api/v2/", include(router.urls)),
     ]
 
     # adding default format for metadata schema validation
