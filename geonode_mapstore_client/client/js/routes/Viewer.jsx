@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
@@ -74,13 +74,25 @@ function ViewerRoute({
 
     const { pk } = match.params || {};
     const pluginsConfig = getPluginsConfiguration(name, propPluginsConfig);
+    const pluginsCfgLength = pluginsConfig?.length;
 
     const { plugins: loadedPlugins, pending } = useModulePlugins({
         pluginsEntries: getPlugins(plugins, 'module'),
         pluginsConfig
     });
+
+    const pluginsRef = useRef(null);
     useEffect(() => {
-        if (!pending && pk !== undefined) {
+        if (!pluginsRef.current || pluginsCfgLength === 0) {
+            // to ensure and prevent loading and requesting of resource configurations
+            // post initialization when user plugin is employed
+            pluginsRef.current = pluginsCfgLength;
+        }
+    }, [pluginsCfgLength]);
+
+    const pluginLoading = pluginsRef.current === pluginsCfgLength && pending;
+    useEffect(() => {
+        if (!pluginLoading && pk !== undefined) {
             if (pk === 'new') {
                 onCreate(resourceType, {
                     params: match.params
@@ -92,9 +104,9 @@ function ViewerRoute({
                 });
             }
         }
-    }, [pending, pk]);
+    }, [pluginLoading, pk]);
 
-    const loading = loadingConfig || pending;
+    const loading = loadingConfig || pluginLoading;
     const parsedPlugins = useMemo(() => ({ ...loadedPlugins, ...getPlugins(plugins) }), [loadedPlugins]);
     const Loader = loaderComponent;
     const className = `page-${resourceType}-viewer`;
