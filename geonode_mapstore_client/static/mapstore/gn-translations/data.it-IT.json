@@ -15,6 +15,12 @@
                 "emptyList": "Nessun risultato per questa richiesta. Prova a cambiare il filtro o selezionare un altro servizio nel selettore in alto a destra."
             }
         },
+        "plugins": {
+            "VisualStyleEditor": {
+                "description": "Editor di stile del set di dati",
+                "title": "Editor dello stile visivo"
+            }
+        },
         "gnhome": {
             "description": "<h1>GeoNode</h1><p>condivisione di dati geospaziali e mappe.</p>",
             "orderBy": "Ordinato da",
