@@ -15,6 +15,12 @@
                 "emptyList": "No hay resultados para esta solicitud. Intente cambiar el filtro o seleccione un servicio diferente de la entrada en la esquina superior derecha."
             }
         },
+        "plugins": {
+            "VisualStyleEditor": {
+                "description": "Editor de estilo del conjunto de datos",
+                "title": "Editor de estilo visual"
+            }
+        },
         "gnhome": {
             "description": "<h1>GeoNode</h1><p>compartir datos y mapas geoespaciales.</p>",
             "orderBy": "Ordenar por",
@@ -375,7 +381,25 @@
             "deleteResourceWarning": {
                 "mapviewer": "Este visor podría ser utilizado por algunos mapas. Puede ver la lista de mapas dentro de la pestaña Recursos vinculados de este visor de mapas."
             },
-            "unadvertised": "El recurso no se anuncia. Está oculto en el catálogo y en los resultados de búsqueda."
+            "unadvertised": "El recurso no se anuncia. Está oculto en el catálogo y en los resultados de búsqueda.",
+            "linkedResource": {
+                "deleteTitle": "¿También quieres eliminar el visor?",
+                "deleteAndUnlinkWarning": {
+                    "mapviewer": "El visor sólo lo utiliza este mapa. Con esta acción puedes desvincular el mapa del visor y también eliminarlo, al elegir 'no' solo se desvinculará el visor"
+                },
+                "remove": "Eliminar recurso vinculado",
+                "title": "Recurso vinculado",
+                "message": {
+                    "success": {
+                        "removeLinkedResource": "Se eliminó el recurso vinculado con éxito",
+                        "linkResource": "Recurso vinculado guardado correctamente"
+                    },
+                    "failure": {
+                        "removeLinkedResource": "No se pudo eliminar el recurso vinculado",
+                        "linkResource": "No se pudo guardar el recurso vinculado"
+                    }
+                }
+            }
         }
     }
 }

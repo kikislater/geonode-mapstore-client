@@ -15,6 +15,12 @@
                 "emptyList": "No results for this request. Try to change filter or select a different service from the input in the top right corner."
             }
         },
+        "plugins": {
+            "VisualStyleEditor": {
+                "description": "Dataset's style editor",
+                "title": "Visual Style Editor"
+            }
+        },
         "gnhome": {
             "description": "<h1>GeoNode</h1><p>sharing geospatial data and maps.</p>",
             "orderBy": "Order by",
@@ -369,14 +375,34 @@
             "mapViewersCatalogEntriesNoResults": "No results match your search",
             "linkToViewer": "Link to viewer",
             "createNewViewer": "Create new viewer",
-            "manageViewerConfiguration": "Manage viewer configuration",
+            "addViewerConfiguration": "Add viewer",
+            "editViewerConfiguration": "Edit viewer",
+            "removeViewerConfiguration": "Remove viewer",
             "previewCustomViewer": "Preview custom viewer",
             "editMapConfiguration": "Edit map configuration",
             "resource": "Resource",
             "deleteResourceWarning": {
                 "mapviewer": "This viewer could be used by some maps. You can view the list of maps inside the Linked Resources tab of this map viewer"
             },
-            "unadvertised": "Resource is not advertised. It is hidden from the catalog and search results"
+            "unadvertised": "Resource is not advertised. It is hidden from the catalog and search results",
+            "linkedResource": {
+                "deleteTitle": "Do you also want to delete the viewer?",
+                "deleteAndUnlinkWarning": {
+                    "mapviewer": "The viewer is only used by this map. With this action you can unlink the map from the viewer and also delete it, choosing 'no' will only unlink the viewer"
+                },
+                "remove": "Remove linked resource",
+                "title": "Linked resource",
+                "message": {
+                    "success": {
+                        "removeLinkedResource": "Removed linked resource successfully",
+                        "linkResource": "Saved linked resource successfully"
+                    },
+                    "failure": {
+                        "removeLinkedResource": "Failed to remove linked resource",
+                        "linkResource": "Failed to save linked resource"
+                    }
+                }
+            }
         }
     }
 }

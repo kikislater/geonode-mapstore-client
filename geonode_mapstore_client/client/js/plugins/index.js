@@ -400,6 +400,10 @@ export const plugins = {
         'Legend',
         () => import(/* webpackChunkName: 'plugins/legend-plugin' */ '@js/plugins/Legend')
     ),
+    MapViewerConfigurationPlugin: toModulePlugin(
+        'MapViewerConfiguration',
+        () => import(/* webpackChunkName: 'plugins/map-viewer-configuration' */ '@js/plugins/MapViewerConfiguration')
+    ),
     DatasetsCatalogPlugin: toModulePlugin(
         'DatasetsCatalog',
         () => import(/* webpackChunkName: 'plugins/dataset-catalog' */ '@js/plugins/DatasetsCatalog')
@@ -431,6 +435,26 @@ export const plugins = {
     MapViewersCatalogPlugin: toModulePlugin(
         'MapViewersCatalog',
         () => import(/* webpackChunkName: 'plugins/map-viewers-catalog' */ '@js/plugins/MapViewersCatalog')
+    ),
+    MapExportPlugin: toModulePlugin(
+        'MapExport',
+        () => import(/* webpackChunkName: 'plugins/mapExport' */ '@mapstore/framework/plugins/MapExport')
+    ),
+    MapImportPlugin: toModulePlugin(
+        'MapImport',
+        () => import(/* webpackChunkName: 'plugins/mapImport' */ '@mapstore/framework/plugins/MapImport')
+    ),
+    SearchByBookmarkPlugin: toModulePlugin(
+        'SearchByBookmark',
+        () => import(/* webpackChunkName: 'plugins/searchByBookmark' */ '@mapstore/framework/plugins/SearchByBookmark')
+    ),
+    CRSSelectorPlugin: toModulePlugin(
+        'CRSSelector',
+        () => import(/* webpackChunkName: 'plugins/CRSSelector' */ '@mapstore/framework/plugins/CRSSelector')
+    ),
+    SettingsPlugin: toModulePlugin(
+        'Settings',
+        () => import(/* webpackChunkName: 'plugins/settings' */ '@mapstore/framework/plugins/Settings')
     )
 };
 

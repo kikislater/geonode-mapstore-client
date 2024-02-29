@@ -8,6 +8,7 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import isNil from 'lodash/isNil';
 import { FormControl as FormControlRB, Glyphicon } from 'react-bootstrap';
 import Message from '@mapstore/framework/components/I18N/Message';
 import Button from '@js/components/Button';
@@ -35,7 +36,8 @@ function ResourcesCompactCatalog({
     onSelect,
     onClose,
     titleId,
-    noResultId
+    noResultId,
+    loading: resourceLoading
 }) {
 
     const scrollContainer = useRef();
@@ -45,6 +47,10 @@ function ResourcesCompactCatalog({
     const [isNextPageAvailable, setIsNextPageAvailable] = useState(false);
     const [q, setQ] = useState('');
     const isMounted = useRef();
+
+    useEffect(()=>{
+        !isNil(resourceLoading) && setLoading(resourceLoading);
+    }, [resourceLoading]);
 
     useInfiniteScroll({
         scrollContainer: scrollContainer.current,
@@ -151,7 +157,7 @@ function ResourcesCompactCatalog({
             </ul>
 
         </div>
-        {(loading && entries.length === 0) && <div
+        {loading && <div
             style={{
                 position: 'absolute',
                 top: 0,

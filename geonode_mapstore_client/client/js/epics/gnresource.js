@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import axios from '@mapstore/framework/libs/ajax';
 import uuid from "uuid";
 import url from "url";
+import omit from 'lodash/omit';
 import {
     getNewMapConfiguration,
     getNewGeoStoryConfig,
@@ -22,7 +23,9 @@ import {
     getMapByPk,
     getCompactPermissionsByPk,
     setResourceThumbnail,
-    getLinkedResourcesByPk
+    getLinkedResourcesByPk,
+    setLinkedResourcesByPk,
+    removeLinkedResourcesByPk
 } from '@js/api/geonode/v2';
 import { configureMap } from '@mapstore/framework/actions/config';
 import { mapSelector } from '@mapstore/framework/selectors/map';
@@ -51,7 +54,9 @@ import {
     updateResourceProperties,
     SET_RESOURCE_THUMBNAIL,
     updateResource,
-    setResourcePathParameters
+    setResourcePathParameters,
+    MANAGE_LINKED_RESOURCE,
+    setMapViewerLinkedResource
 } from '@js/actions/gnresource';
 
 import {
@@ -104,6 +109,9 @@ import {
     setCreationStep
 } from '@mapstore/framework/actions/contextcreator';
 import { setContext } from '@mapstore/framework/actions/context';
+import { wrapStartStop } from '@mapstore/framework/observables/epics';
+import { parseDevHostname } from '@js/utils/APIUtils';
+import { ProcessTypes } from '@js/utils/ResourceServiceUtils';
 
 const resourceTypes = {
     [ResourceTypes.DATASET]: {
@@ -200,12 +208,13 @@ const resourceTypes = {
                     .then(({ linked_to: linkedTo = [] } = {}) => {
                         const mapViewers = linkedTo.find(({ resource_type: resourceType }) => resourceType === ResourceTypes.VIEWER);
                         return mapViewers?.pk
-                            ? getGeoAppByPk(mapViewers?.pk)
+                            ? axios.all([getGeoAppByPk(mapViewers?.pk), getLinkedResourcesByPk(mapViewers?.pk)])
                             : null;
                     })
                     .catch(() => null)
             ]))
-                .switchMap(([baseConfig, resource, mapViewerResource]) => {
+                .switchMap(([baseConfig, resource, mapViewerResources]) => {
+                    const [mapViewerResource, viewerLinkedResource] = mapViewerResources ?? [];
                     const mapConfig = options.data
                         ? options.data
                         : toMapStoreMapConfig(resource, baseConfig);
@@ -215,6 +224,7 @@ const resourceTypes = {
                         setContext(mapViewerResource ? mapViewerResource.data : null),
                         setResource(resource),
                         setResourceId(pk),
+                        setMapViewerLinkedResource({resource: omit(mapViewerResource, ['data']), linkedResource: viewerLinkedResource}),
                         setResourcePathParameters({
                             ...options?.params,
                             appPk: mapViewerResource?.pk,
@@ -369,7 +379,27 @@ const resourceTypes = {
                         setCreationStep('configure-plugins')
                     );
                 });
+        },
+        linkedResourceObservable: (payload) => {
+            const {response, source} = payload;
+            const { success, error: [error] } = response;
+            if (success) {
+                // redirect to map resource
+                const redirectUrl = window.location.href.replace(/(#).*/, '$1' + `/map/${source}`);
+                window.location.replace(parseDevHostname(redirectUrl));
+                window.location.reload();
+                return Observable.empty();
+            }
+            return Observable.throw(new Error(error));
+        },
+        removeLinkedResourceObservable: (payload) => {
+            const { resource, response } = payload;
+            const { success, error: [error] } = response;
+            return success
+                ? Observable.of(setResourcePathParameters({...resource?.params, appPk: null}))
+                : Observable.throw(new Error(error));
         }
+        // }
     }
 };
 
@@ -559,10 +589,43 @@ export const closeOpenPanels = (action$, store) => action$.ofType(SET_CONTROL_PR
         return actions.length > 0 ? Observable.of(...actions) : Observable.empty();
     });
 
+export const gnManageLinkedResource = (action$, store) =>
+    action$.ofType(MANAGE_LINKED_RESOURCE)
+        .switchMap((action) => {
+            const state = store.getState();
+            const resource = state.gnresource ?? {};
+            const { source, target, resourceType, processType } = action.payload;
+            const resourceObservable = resourceTypes[resourceType];
+            let observable$ = resourceObservable?.linkedResourceObservable;
+            let linkedResourceFn = setLinkedResourcesByPk;
+            if (processType === ProcessTypes.REMOVE_LINKED_RESOURCE) {
+                observable$ = resourceObservable?.removeLinkedResourceObservable;
+                linkedResourceFn = removeLinkedResourcesByPk;
+            }
+            if (!observable$) Observable.empty();
+            return Observable.defer(() => linkedResourceFn(source, target))
+                .switchMap((response) =>
+                    Observable.concat(
+                        observable$({response, source, resource}),
+                        Observable.of(
+                            successNotification({
+                                title: "gnviewer.linkedResource.title",
+                                message: `gnviewer.linkedResource.message.success.${processType}`}
+                            ))
+                    ).catch(() => Observable.of(errorNotification({
+                        title: "gnviewer.linkedResource.title",
+                        message: `gnviewer.linkedResource.message.failure.${processType}`
+                    }))))
+                .let(wrapStartStop(
+                    setControlProperty(processType, 'loading', true),
+                    setControlProperty(processType, 'loading', false)
+                ));
+        });
 export default {
     gnViewerRequestNewResourceConfig,
     gnViewerRequestResourceConfig,
     gnViewerSetNewResourceThumbnail,
     closeInfoPanelOnMapClick,
-    closeOpenPanels
+    closeOpenPanels,
+    gnManageLinkedResource
 };

@@ -22,6 +22,9 @@ import ResourcesCompactCatalog from '@js/components/ResourcesCompactCatalog';
 import ResizableModal from '@mapstore/framework/components/misc/ResizableModal';
 import Portal from '@mapstore/framework/components/misc/Portal';
 import { setResource as setContextCreatorResource } from '@mapstore/framework/actions/contextcreator';
+import { manageLinkedResource } from '@js/actions/gnresource';
+import { ResourceTypes } from '@js/utils/ResourceUtils';
+import { ProcessTypes } from '@js/utils/ResourceServiceUtils';
 
 function MapViewersCatalogPlugin({
     enabled,
@@ -31,6 +34,7 @@ function MapViewersCatalogPlugin({
     location,
     onReplaceLocation,
     onSetMapViewer,
+    onManageLinkedResource,
     ...props
 }) {
     const [newViewerModal, setNewViewerModal] = useState('');
@@ -61,20 +65,14 @@ function MapViewersCatalogPlugin({
                         noResultId={'gnviewer.mapViewersCatalogEntriesNoResults'}
                         onSelect={(resource) => {
                             if (newViewerModal === 'link') {
-                                // initialize link workflow and then replace the path
-                                // TODO:
-                                // finally replace path with the viewer pk
-                                onReplaceLocation({
-                                    ...location,
-                                    pathname: location.pathname.replace('/new/', `/${resource.pk}/`)
-                                });
+                                onManageLinkedResource({resourceType: ResourceTypes.VIEWER, source: mapPk, target: resource.pk, processType: ProcessTypes.LINK_RESOURCE});
                             } else {
                                 getDefaultPluginsConfig()
                                     .then((pluginsConfig) => {
                                         onSetMapViewer({ data: resource.data }, pluginsConfig);
                                     });
+                                onSetControl(false);
                             }
-                            onSetControl(false);
                             setNewViewerModal('');
                         }}
                         request={(options) => {
@@ -136,15 +134,18 @@ const ConnectedMapViewersCatalogPlugin = connect(
     createSelector([
         state => state?.controls?.mapViewersCatalog?.enabled,
         state => state?.gnresource?.params,
+        state => state?.controls?.[ProcessTypes.LINK_RESOURCE]?.loading,
         state => state?.router?.location
-    ], (enabled, resourcesParams, location) => ({
+    ], (enabled, resourcesParams, loading, location) => ({
         enabled,
         resourcesParams,
+        loading,
         location
     })), {
         onSetControl: setControlProperty.bind(null, 'mapViewersCatalog', 'enabled'),
         onReplaceLocation: replace,
-        onSetMapViewer: setContextCreatorResource
+        onSetMapViewer: setContextCreatorResource,
+        onManageLinkedResource: manageLinkedResource
     }
 )(MapViewersCatalogPlugin);
 

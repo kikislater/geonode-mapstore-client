@@ -54,20 +54,69 @@
         "activateMetedataTool": false
       },
       "children": [
+        "TOCItemsSettings",
         "FeatureEditor",
         "FilterLayer",
         "AddGroup",
-        "Swipe"
+        "Swipe",
+        "VisualStyleEditor"
       ],
       "autoEnableChildren": [
+        "TOCItemsSettings",
         "FeatureEditor",
         "FilterLayer",
-        "AddGroup"
+        "AddGroup",
+        "VisualStyleEditor"
       ],
       "dependencies": [
         "DrawerMenu",
         "MapLoading"
       ]
+    },
+    {
+      "name": "TOCItemsSettings",
+      "glyph": "wrench",
+      "title": "plugins.TOCItemsSettings.title",
+      "description": "plugins.TOCItemsSettings.description",
+      "children": [
+        "StyleEditor"
+      ]
+    },
+    {
+      "name": "StyleEditor",
+      "glyph": "1-stilo",
+      "title": "plugins.StyleEditor.title",
+      "description": "plugins.StyleEditor.description"
+    },
+    {
+      "name": "VisualStyleEditor",
+      "glyph": "1-stilo",
+      "title": "plugins.VisualStyleEditor.title",
+      "description": "plugins.VisualStyleEditor.description",
+      "defaultConfig": {
+        "showLayerProperties": true,
+        "styleService": {
+            "baseUrl": "{state('settings') && state('settings').geonodeUrl && state('settings').geonodeUrl + 'gs/' || '/gs/'}",
+            "formats": [
+                "css",
+                "sld"
+            ],
+            "availableUrls": [
+                "{state('settings') && state('settings').geoserverUrl || '/geoserver/'}",
+                "{state('settings') && state('settings').geonodeUrl && state('settings').geonodeUrl + 'gs/' || '/gs/'}"
+            ],
+            "fonts": [
+                "Arial",
+                "Courier New",
+                "Monospaced",
+                "SansSerif",
+                "Serif",
+                "Times New Roman"
+            ]
+        },
+        "editingAllowedRoles": null,
+        "enableSetDefaultStyle": true
+      }
     },
     {
       "name": "FeatureEditor",
@@ -143,7 +192,10 @@
         "viewerOptions": {
           "container": "{context.ReactSwipe}"
         }
-      }
+      },
+      "children": [
+        "Settings"
+      ]
     },
     {
       "name": "Locate",
@@ -255,6 +307,9 @@
       "name": "Swipe"
     },
     {
+      "name": "SearchByBookmark"
+    },
+    {
       "name": "Search",
       "glyph": "search",
       "title": "plugins.Search.title",
@@ -262,6 +317,9 @@
       "dependencies": [
         "OmniBar",
         "SearchServicesConfig"
+      ],
+      "children": [
+        "SearchByBookmark"
       ],
       "defaultConfig": {
         "withToggle": [
@@ -422,9 +480,74 @@
       "glyph": "folder-open",
       "title": "plugins.MetadataExplorer.title",
       "description": "plugins.MetadataExplorer.description",
+      "dependencies": [
+        "SidebarMenu"
+      ],
       "defaultConfig": {
         "wrap": true
       }
+    },
+    {
+      "name": "MapImport",
+      "glyph": "upload",
+      "title": "plugins.MapImport.title",
+      "description": "plugins.MapImport.description",
+      "dependencies": [
+        "SidebarMenu"
+      ]
+    },
+    {
+      "name": "MapExport",
+      "glyph": "download",
+      "title": "plugins.MapExport.title",
+      "description": "plugins.MapExport.description",
+      "dependencies": [
+        "SidebarMenu"
+      ]
+    },
+    {
+      "name": "CRSSelector",
+      "glyph": "crs",
+      "title": "plugins.CRSSelector.title",
+      "description": "plugins.CRSSelector.description",
+      "dependencies": [
+        "MapFooter"
+      ],
+      "defaultConfig": {
+        "additionalCRS": {},
+        "filterAllowedCRS": [
+          "EPSG:4326",
+          "EPSG:3857"
+        ],
+        "allowedRoles": [
+          "ADMIN"
+        ]
+      }
+    },
+    {
+      "name": "Settings",
+      "glyph": "cog",
+      "title": "plugins.Settings.title",
+      "description": "plugins.Settings.description",
+      "dependencies": [
+        "SidebarMenu"
+      ],
+      "defaultConfig": {
+        "wrap": true,
+        "overrideSettings": {
+          "language": false,
+          "history": false
+        }
+      }
+    },
+    {
+      "name": "LongitudinalProfileTool",
+      "glyph": "1-line",
+      "title": "plugins.LongitudinalProfileTool.title",
+      "description": "plugins.LongitudinalProfileTool.description",
+      "dependencies": [
+        "SidebarMenu"
+      ]
     }
   ]
 }
