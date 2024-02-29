@@ -400,6 +400,10 @@ export const plugins = {
         'Legend',
         () => import(/* webpackChunkName: 'plugins/legend-plugin' */ '@js/plugins/Legend')
     ),
+    MapViewerConfigurationPlugin: toModulePlugin(
+        'MapViewerConfiguration',
+        () => import(/* webpackChunkName: 'plugins/map-viewer-configuration' */ '@js/plugins/MapViewerConfiguration')
+    ),
     DatasetsCatalogPlugin: toModulePlugin(
         'DatasetsCatalog',
         () => import(/* webpackChunkName: 'plugins/dataset-catalog' */ '@js/plugins/DatasetsCatalog')

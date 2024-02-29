@@ -300,6 +300,24 @@ export const getLinkedResourcesByPk = (pk) => {
         .then(({ data }) => data ?? {});
 };
 
+export const setLinkedResourcesByPk = (sourcePk, targetPks) => {
+    return axios.post(parseDevHostname(`${endpoints[RESOURCES]}/${sourcePk}/linked_resources`),
+        {
+            target: castArray(targetPks)
+        }
+    )
+        .then(({ data }) => data ?? {});
+};
+
+export const removeLinkedResourcesByPk = (sourcePk, targetPks) => {
+    return axios.delete(parseDevHostname(`${endpoints[RESOURCES]}/${sourcePk}/linked_resources`), {
+        data: {
+            target: castArray(targetPks)
+        }
+    })
+        .then(({ data }) => data ?? {});
+};
+
 export const getResourceByUuid = (uuid) => {
     return axios.get(parseDevHostname(`${endpoints[RESOURCES]}`), {
         params: {
@@ -877,6 +895,8 @@ export default {
     getResources,
     getResourceByPk,
     getLinkedResourcesByPk,
+    setLinkedResourcesByPk,
+    removeLinkedResourcesByPk,
     getResourceByUuid,
     createGeoApp,
     getGeoAppByPk,

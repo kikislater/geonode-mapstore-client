@@ -1531,9 +1531,23 @@
                                     "labelId": "gnviewer.editMetadata"
                                 },
                                 {
+                                    "type": "divider"
+                                },
+                                {
                                     "type": "link",
-                                    "href": "{'#/viewer/' + (state('resourceParams')?.appPk || 'new') + '/map/' + state('gnResourceData')?.pk}",
-                                    "labelId": "gnviewer.manageViewerConfiguration"
+                                    "disableIf": "{state('resourceParams')?.appPk}",
+                                    "href": "{'#/viewer/' + 'new/map/' + state('gnResourceData')?.pk}",
+                                    "labelId": "gnviewer.addViewerConfiguration"
+                                },
+                                {
+                                    "type": "plugin",
+                                    "name": "EditMapViewer",
+                                    "disableIf": "{!state('resourceParams')?.appPk}"
+                                },
+                                {
+                                    "type": "plugin",
+                                    "disableIf": "{!state('resourceParams')?.appPk}",
+                                    "name": "RemoveMapViewer"
                                 }
                             ]
                         },
@@ -1558,6 +1572,10 @@
             {
                 "mandatory": true,
                 "name": "DeleteResource"
+            },
+            {
+                "mandatory": true,
+                "name": "MapViewerConfiguration"
             },
             {
                 "mandatory": true,

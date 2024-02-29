@@ -376,7 +376,25 @@
             "deleteResourceWarning": {
                 "mapviewer": "Dieser Viewer könnte von einigen Karten verwendet werden. Sie können die Liste der Karten auf der Registerkarte „Verknüpfte Ressourcen“ dieses Kartenviewers anzeigen"
             },
-            "unadvertised": "Ressource wird nicht beworben. Es ist im Katalog und in den Suchergebnissen ausgeblendet"
+            "unadvertised": "Ressource wird nicht beworben. Es ist im Katalog und in den Suchergebnissen ausgeblendet",
+            "linkedResource": {
+                "deleteTitle": "Möchten Sie den Viewer auch löschen?",
+                "deleteAndUnlinkWarning": {
+                    "mapviewer": "Der Viewer wird nur von dieser Karte verwendet. Mit dieser Aktion können Sie die Verknüpfung der Karte mit dem Viewer aufheben und sie auch löschen. Wenn Sie „Nein“ wählen, wird nur die Verknüpfung mit dem Viewer aufgehoben"
+                },
+                "remove": "Verlinkte Ressource entfernen",
+                "title": "Verlinkte Ressource",
+                "message": {
+                    "success": {
+                        "removeLinkedResource": "Die verknüpfte Ressource wurde erfolgreich entfernt",
+                        "linkResource": "Die verknüpfte Ressource wurde erfolgreich gespeichert"
+                    },
+                    "failure": {
+                        "removeLinkedResource": "Die verknüpfte Ressource konnte nicht entfernt werden",
+                        "linkResource": "Die verknüpfte Ressource konnte nicht gespeichert werden"
+                    }
+                }
+            }
         }
     }
 }

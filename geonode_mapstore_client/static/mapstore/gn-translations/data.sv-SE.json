@@ -346,7 +346,25 @@
             "deleteResourceWarning": {
                 "mapviewer": "This viewer could be used by some maps. You can view the list of maps inside the Linked Resources tab of this map viewer"
             },
-            "unadvertised": "Resource is not advertised. It is hidden from the catalog and search results"
+            "unadvertised": "Resource is not advertised. It is hidden from the catalog and search results",
+            "linkedResource": {
+                "deleteTitle": "Do you also want to delete the viewer?",
+                "deleteAndUnlinkWarning": {
+                    "mapviewer": "The viewer is only used by this map. With this action you can unlink the map from the viewer and also delete it, choosing 'no' will only unlink the viewer"
+                },
+                "remove": "Remove linked resource",
+                "title": "Linked resource",
+                "message": {
+                    "success": {
+                        "removeLinkedResource": "Removed linked resource successfully",
+                        "linkResource": "Saved linked resource successfully"
+                    },
+                    "failure": {
+                        "removeLinkedResource": "Failed to remove linked resource",
+                        "linkResource": "Failed to save linked resource"
+                    }
+                }
+            }
         }
     }
 }

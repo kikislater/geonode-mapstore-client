@@ -8,6 +8,7 @@
 
 import axios from '@mapstore/framework/libs/ajax';
 import { Observable } from 'rxjs';
+import get from 'lodash/get';
 import { mapInfoSelector } from '@mapstore/framework/selectors/map';
 import { userSelector } from '@mapstore/framework/selectors/security';
 import {
@@ -32,7 +33,8 @@ import {
     updateResourceProperties,
     loadingResourceConfig,
     enableMapThumbnailViewer,
-    updateResource
+    updateResource,
+    manageLinkedResource
 } from '@js/actions/gnresource';
 import {
     getResourceByPk,
@@ -150,6 +152,10 @@ export const gnSaveContent = (action$, store) =>
             return Observable.defer(() => SaveAPI[contentType](state, action.id, body, action.reload))
                 .switchMap((resource) => {
                     if (action.reload) {
+                        if (contentType === ResourceTypes.VIEWER) {
+                            const sourcepk = get(state, 'router.location.pathname', '').split('/').pop();
+                            return Observable.of(manageLinkedResource({resourceType: contentType, source: sourcepk, target: resource.pk, processType: ProcessTypes.LINK_RESOURCE}));
+                        }
                         window.location.href = parseDevHostname(resource?.detail_url);
                         window.location.reload();
                         return Observable.empty();
