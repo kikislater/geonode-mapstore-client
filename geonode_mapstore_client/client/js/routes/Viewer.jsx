@@ -81,18 +81,20 @@ function ViewerRoute({
         pluginsConfig
     });
 
-    const pluginsRef = useRef(null);
+    const viewer = useRef({ resourceLoaded: false, prevPluginsLength: null });
+    const { resourceLoaded, prevPluginsLength } = viewer.current ?? {};
     useEffect(() => {
-        if (!pluginsRef.current || pluginsCfgLength === 0) {
+        if (!prevPluginsLength || pluginsCfgLength === 0) {
             // to ensure and prevent loading and requesting of resource configurations
             // post initialization when user plugin is employed
-            pluginsRef.current = pluginsCfgLength;
+            viewer.current.prevPluginsLength = pluginsCfgLength;
         }
     }, [pluginsCfgLength]);
 
-    const pluginLoading = pluginsRef.current === pluginsCfgLength && pending;
+    const pluginLoading = prevPluginsLength === pluginsCfgLength && pending;
     useEffect(() => {
-        if (!pluginLoading && pk !== undefined) {
+        if (!pluginLoading && !resourceLoaded && pk !== undefined) {
+            viewer.current.resourceLoaded = true;
             if (pk === 'new') {
                 onCreate(resourceType, {
                     params: match.params
