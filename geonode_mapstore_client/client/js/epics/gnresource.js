@@ -393,13 +393,14 @@ const resourceTypes = {
             return Observable.throw(new Error(error));
         },
         removeLinkedResourceObservable: (payload) => {
-            const { resource, response } = payload;
+            const { response } = payload;
             const { success, error: [error] } = response;
-            return success
-                ? Observable.of(setResourcePathParameters({...resource?.params, appPk: null}))
-                : Observable.throw(new Error(error));
+            if (success) {
+                window.location.reload();
+                return Observable.empty();
+            }
+            return Observable.throw(new Error(error));
         }
-        // }
     }
 };
 

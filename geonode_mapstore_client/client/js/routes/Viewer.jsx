@@ -91,7 +91,7 @@ function ViewerRoute({
         }
     }, [pluginsCfgLength]);
 
-    const pluginLoading = prevPluginsLength === pluginsCfgLength && pending;
+    const pluginLoading = prevPluginsLength !== null && prevPluginsLength !== pluginsCfgLength ? false : pending;
     useEffect(() => {
         if (!pluginLoading && !resourceLoaded && pk !== undefined) {
             viewer.current.resourceLoaded = true;
