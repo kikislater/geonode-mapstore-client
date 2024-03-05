@@ -397,7 +397,6 @@ const resourceTypes = {
             const { success, error: [error] } = response;
             if (success) {
                 window.location.replace(window.location.href);
-                window.location.reload();
                 return Observable.empty();
             }
             return Observable.throw(new Error(error));
