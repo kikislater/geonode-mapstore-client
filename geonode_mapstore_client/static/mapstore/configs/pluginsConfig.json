@@ -539,15 +539,6 @@
           "history": false
         }
       }
-    },
-    {
-      "name": "LongitudinalProfileTool",
-      "glyph": "1-line",
-      "title": "plugins.LongitudinalProfileTool.title",
-      "description": "plugins.LongitudinalProfileTool.description",
-      "dependencies": [
-        "SidebarMenu"
-      ]
     }
   ]
 }
