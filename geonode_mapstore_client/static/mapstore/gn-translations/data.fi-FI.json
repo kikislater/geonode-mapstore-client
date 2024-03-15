@@ -36,6 +36,7 @@
             "documents": "Documents",
             "remoteServices": "Remote services",
             "map": "Map",
+            "mapviewers": "MapViewers",
             "geostory": "GeoStory",
             "geostories": "GeoStories",
             "createGeostory": "Create geostory",
