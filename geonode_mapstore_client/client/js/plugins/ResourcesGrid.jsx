@@ -357,6 +357,11 @@ function ResourcesGrid({
                     type: 'filter'
                 },
                 {
+                    id: 'mapviewer',
+                    labelId: 'gnhome.mapviewers',
+                    type: 'filter'
+                },
+                {
                     id: 'geostory',
                     labelId: 'gnhome.geostories',
                     type: 'filter'
