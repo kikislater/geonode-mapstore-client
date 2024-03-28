@@ -164,12 +164,12 @@ const ButtonLinkedResource = ({  hide, loading, labelId, showLoader, ...props}) 
 
 const RemoveMapViewerButton = (props) => {
     const resourceType = ResourceTypes.VIEWER;
+    const { linkedResources, ...mapViewerResource } = props.viewerLinkedResource ?? {};
 
     // when map viewer has one association
-    const allowDelete =  props.viewerLinkedResource?.linkedResource?.linked_by?.length === 1;
+    const allowDelete = linkedResources?.linkedBy?.length === 1;
 
     const handleOnClick = () => {
-        const { resource: mapViewerResource } = props.viewerLinkedResource ?? {};
         if (allowDelete) {
             props.onDelete({resources: [mapViewerResource], resourceType});
         } else {

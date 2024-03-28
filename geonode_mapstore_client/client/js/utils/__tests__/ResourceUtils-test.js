@@ -31,7 +31,8 @@ import {
     FEATURE_INFO_FORMAT,
     isDocumentExternalSource,
     getDownloadUrlInfo,
-    getCataloguePath
+    getCataloguePath,
+    getResourceWithLinkedResources
 } from '../ResourceUtils';
 
 describe('Test Resource Utils', () => {
@@ -1038,5 +1039,13 @@ describe('Test Resource Utils', () => {
 
         // reset value
         set(window.__GEONODE_CONFIG__, cPath, prevValue);
+    });
+    it("getResourceWithLinkedResources", () => {
+        expect(getResourceWithLinkedResources({})).toEqual({});
+        expect(getResourceWithLinkedResources()).toEqual({});
+        expect(getResourceWithLinkedResources({pk: 1, linked_resources: {linked_to: ["1"], linked_by: ["1"]}}))
+            .toEqual({pk: 1, linkedResources: {linkedBy: ["1"], linkedTo: ["1"]}});
+        expect(getResourceWithLinkedResources({linked_resources: {linked_to: ["1"], linked_by: ["1"]}}))
+            .toEqual({linkedResources: {linkedBy: ["1"], linkedTo: ["1"]}});
     });
 });
