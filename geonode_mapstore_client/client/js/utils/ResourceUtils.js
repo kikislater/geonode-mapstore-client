@@ -9,6 +9,7 @@
 import uuid from 'uuid';
 import url from 'url';
 import isEmpty from 'lodash/isEmpty';
+import omit from 'lodash/omit';
 import { getConfigProp, convertFromLegacy, normalizeConfig } from '@mapstore/framework/utils/ConfigUtils';
 import { getGeoNodeLocalConfig, parseDevHostname } from '@js/utils/APIUtils';
 import { ProcessTypes, ProcessStatus } from '@js/utils/ResourceServiceUtils';
@@ -746,4 +747,15 @@ export const getCataloguePath = (path = '') => {
         return path.replace('/catalogue/', catalogPagePath);
     }
     return path;
+};
+
+export const getResourceWithLinkedResources = (resource = {}) => {
+    let linkedResources = resource.linked_resources ?? {};
+    if (!isEmpty(linkedResources)) {
+        const linkedTo = linkedResources.linked_to ?? [];
+        const linkedBy = linkedResources.linked_by ?? [];
+        linkedResources = isEmpty(linkedTo) && isEmpty(linkedBy) ? {} : ({ linkedTo, linkedBy });
+        return { ...omit(resource, 'linked_resources'), linkedResources };
+    }
+    return resource;
 };

@@ -11,6 +11,7 @@ import axios from '@mapstore/framework/libs/ajax';
 import uuid from "uuid";
 import url from "url";
 import omit from 'lodash/omit';
+import get from 'lodash/get';
 import {
     getNewMapConfiguration,
     getNewGeoStoryConfig,
@@ -23,7 +24,6 @@ import {
     getMapByPk,
     getCompactPermissionsByPk,
     setResourceThumbnail,
-    getLinkedResourcesByPk,
     setLinkedResourcesByPk,
     removeLinkedResourcesByPk
 } from '@js/api/geonode/v2';
@@ -81,7 +81,8 @@ import {
     ResourceTypes,
     toMapStoreMapConfig,
     parseStyleName,
-    getCataloguePath
+    getCataloguePath,
+    getResourceWithLinkedResources
 } from '@js/utils/ResourceUtils';
 import {
     canAddResource,
@@ -203,28 +204,29 @@ const resourceTypes = {
         resourceObservable: (pk, options) =>
             Observable.defer(() =>  axios.all([
                 getNewMapConfiguration(),
-                getMapByPk(pk),
-                getLinkedResourcesByPk(pk)
-                    .then(({ linked_to: linkedTo = [] } = {}) => {
-                        const mapViewers = linkedTo.find(({ resource_type: resourceType }) => resourceType === ResourceTypes.VIEWER);
+                getMapByPk(pk, ['linked_resources'])
+                    .then((_resource) => {
+                        const resource = getResourceWithLinkedResources(_resource);
+                        const mapViewers = get(resource, 'linkedResources.linkedTo', [])
+                            .find(({ resource_type: type } = {}) => type === ResourceTypes.VIEWER);
                         return mapViewers?.pk
-                            ? axios.all([getGeoAppByPk(mapViewers?.pk), getLinkedResourcesByPk(mapViewers?.pk)])
-                            : null;
+                            ? axios.all([{...resource}, getGeoAppByPk(mapViewers?.pk, ['linked_resources'])])
+                            : Promise.resolve([{...resource}]);
                     })
                     .catch(() => null)
             ]))
-                .switchMap(([baseConfig, resource, mapViewerResources]) => {
-                    const [mapViewerResource, viewerLinkedResource] = mapViewerResources ?? [];
+                .switchMap(([baseConfig, resource]) => {
+                    const [mapResource, mapViewerResource] = resource ?? [];
                     const mapConfig = options.data
                         ? options.data
-                        : toMapStoreMapConfig(resource, baseConfig);
+                        : toMapStoreMapConfig(mapResource, baseConfig);
                     return Observable.of(
                         configureMap(mapConfig),
                         setControlProperty('toolbar', 'expanded', false),
                         setContext(mapViewerResource ? mapViewerResource.data : null),
-                        setResource(resource),
+                        setResource(mapResource),
                         setResourceId(pk),
-                        setMapViewerLinkedResource({resource: omit(mapViewerResource, ['data']), linkedResource: viewerLinkedResource}),
+                        setMapViewerLinkedResource({...getResourceWithLinkedResources(omit(mapViewerResource, ['data']))}),
                         setResourcePathParameters({
                             ...options?.params,
                             appPk: mapViewerResource?.pk,

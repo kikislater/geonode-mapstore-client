@@ -362,11 +362,11 @@ export const createGeoApp = (body) => {
         .then(({ data }) => data.geoapp);
 };
 
-export const getGeoAppByPk = (pk) => {
+export const getGeoAppByPk = (pk, includes = []) => {
     return axios.get(parseDevHostname(`${endpoints[GEOAPPS]}/${pk}`), {
         params: {
             full: true,
-            include: ['data']
+            include: ['data', ...includes]
         }
     })
         .then(({ data }) => data.geoapp);
@@ -631,14 +631,15 @@ export const updateMap = (id, body = {}) => {
 /**
 * Get a map configuration
 * @memberof api.geonode.adapter
-* @param {number|string} id resource id
+* @param {number|string} pk resource id
+* @param {string[]} includes property to be included in the response
 * @return {promise} it returns an object with the success map object response
 */
-export const getMapByPk = (pk) => {
+export const getMapByPk = (pk, includes = []) => {
     return axios.get(parseDevHostname(`${endpoints[MAPS]}/${pk}/`),
         {
             params: {
-                include: ['data']
+                include: ['data', ...includes]
             }
         })
         .then(({ data }) => data?.map);
