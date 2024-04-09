@@ -94,6 +94,26 @@ def run_setup_hooks(*args, **kwargs):
         "OPTIONS": {"MAX_ENTRIES": 10000},
     }
 
+    settings.REST_API_PRESETS["catalog_list"] = {
+        "exclude[]": ["*"],
+        "include[]": [
+            "advertised",
+            "detail_url",
+            "is_approved",
+            "is_copyable",
+            "is_published",
+            "owner",
+            "perms",
+            "pk",
+            "raw_abstract",
+            "resource_type",
+            "subtype",
+            "title",
+            "data",
+            "executions",
+        ],
+    }
+
 
 def connect_geoserver_style_visual_mode_signal():
     from geonode.geoserver.signals import geoserver_automatic_default_style_set
