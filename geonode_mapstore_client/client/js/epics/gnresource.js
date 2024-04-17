@@ -204,13 +204,13 @@ const resourceTypes = {
         resourceObservable: (pk, options) =>
             Observable.defer(() =>  axios.all([
                 getNewMapConfiguration(),
-                getMapByPk(pk, ['linked_resources'])
+                getMapByPk(pk)
                     .then((_resource) => {
                         const resource = getResourceWithLinkedResources(_resource);
                         const mapViewers = get(resource, 'linkedResources.linkedTo', [])
                             .find(({ resource_type: type } = {}) => type === ResourceTypes.VIEWER);
                         return mapViewers?.pk
-                            ? axios.all([{...resource}, getGeoAppByPk(mapViewers?.pk, ['linked_resources'])])
+                            ? axios.all([{...resource}, getGeoAppByPk(mapViewers?.pk)])
                             : Promise.resolve([{...resource}]);
                     })
                     .catch(() => null)

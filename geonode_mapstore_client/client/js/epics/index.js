@@ -62,7 +62,10 @@ export const gnSetDatasetsPermissions = (actions$, { getState = () => {}} = {}) 
     actions$.ofType(MAP_CONFIG_LOADED, ADD_LAYER)
         .switchMap((action) => {
             if (action.type === MAP_CONFIG_LOADED) {
-                const layerNames = action.config?.map?.layers?.filter((l) => l?.group !== "background").map((l) => l.name);
+                const layerNames = action.config?.map?.layers?.filter((l) => l?.group !== "background")?.map((l) => l.name) ?? [];
+                if (layerNames.length === 0) {
+                    return Rx.Observable.empty();
+                }
                 return Rx.Observable.defer(() => getDatasetsByName(layerNames))
                     .switchMap((layers = []) => {
                         const stateLayers = layers.map((l) => ({

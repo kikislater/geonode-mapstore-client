@@ -102,6 +102,153 @@ def run_setup_hooks(*args, **kwargs):
         "TIMEOUT": 300,
         "OPTIONS": {"MAX_ENTRIES": 10000},
     }
+    settings.REST_API_PRESETS["catalog_list"] = {
+        "exclude[]": ["*"],
+        "include[]": [
+            "advertised",
+            "detail_url",
+            "is_approved",
+            "is_copyable",
+            "is_published",
+            "owner",
+            "perms",
+            "pk",
+            "raw_abstract",
+            "resource_type",
+            "subtype",
+            "title",
+            "executions",
+            "thumbnail_url"
+        ],
+    }
+    settings.REST_API_PRESETS["dataset_list"] = {
+        "exclude[]": ["*"],
+        "include[]": [
+            "advertised",
+            "detail_url",
+            "owner",
+            "perms",
+            "pk",
+            "raw_abstract",
+            "resource_type",
+            "subtype",
+            "title",
+            "data",
+            "executions",
+            "thumbnail_url",
+            "alternate",
+            "links",
+            "featureinfo_custom_template",
+            "has_time",
+            "default_style",
+            "ptype",
+            "extent",
+            "is_approved",
+            "is_published"
+        ],
+    }
+    settings.REST_API_PRESETS["map_list"] = {
+        "exclude[]": ["*"],
+        "include[]": [
+            "advertised",
+            "detail_url",
+            "data",
+            "is_approved",
+            "is_copyable",
+            "is_published",
+            "owner",
+            "perms",
+            "pk",
+            "raw_abstract",
+            "resource_type",
+            "subtype",
+            "title",
+            "executions",
+            "thumbnail_url"
+        ],
+    }
+    settings.REST_API_PRESETS["document_list"] = {
+        "exclude[]": ["*"],
+        "include[]": [
+            "pk",
+            "raw_abstract",
+            "resource_type",
+            "subtype",
+            "title",
+            "data",
+            "executions",
+            "thumbnail_url",
+            "alternate",
+            "attribution",
+            "href"
+        ],
+    }
+    settings.REST_API_PRESETS["viewer_common"] = {
+        "exclude[]": ["*"],
+        "include[]": [
+            "abstract",
+            "advertised",
+            "alternate",
+            "attribution",
+            "category",
+            "created",
+            "date",
+            "date_type",
+            "detail_url",
+            "download_urls",
+            "embed_url",
+            "executions",
+            "extent",
+            "favorite",
+            "group",
+            "is_approved",
+            "is_copyable",
+            "is_published",
+            "keywords",
+            "language",
+            "last_updated",
+            "linked_resources",
+            "links",
+            "owner",
+            "perms",
+            "pk",
+            "poc",
+            "raw_abstract",
+            "regions",
+            "resource_type",
+            "sourcetype",
+            "subtype",
+            "supplemental_information",
+            "temporal_extent_end",
+            "temporal_extent_start",
+            "thumbnail_url",
+            "title",
+            "uuid"
+        ],
+    }
+    settings.REST_API_PRESETS["map_viewer"] = {
+        "include[]": [
+            "data",
+            "maplayers"
+        ]
+    }
+    settings.REST_API_PRESETS["document_viewer"] = {
+        "include[]": [
+            "href",
+            "extension"
+        ]
+    }
+    settings.REST_API_PRESETS["dataset_viewer"] = {
+        "include[]": [
+            "featureinfo_custom_template",            
+            "dataset_ows_url",
+            "default_style",
+            "ptype",
+            "store",
+            "has_time",
+            "attribute_set"
+        ]
+    }
 
 
 def connect_geoserver_style_visual_mode_signal():
