@@ -126,6 +126,17 @@ export const paramsSerializer = (params) => {
     return queryParams;
 };
 
+export const API_PRESET = {
+    CATALOGS: 'catalog_list',
+    DATASETS: 'dataset_list',
+    DOCUMENTS: 'document_list',
+    MAPS: 'map_list',
+    VIEWER_COMMON: 'viewer_common',
+    DATASET: 'dataset_viewer',
+    DOCUMENT: 'document_viewer',
+    MAP: 'map_viewer'
+};
+
 export default {
     parseDevHostname,
     paramsSerializer

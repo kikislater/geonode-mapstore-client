@@ -26,6 +26,11 @@ describe('FileUtils', () => {
         expect(mediaType).toEqual('unsupported');
     });
 
+    it('should return video if extension is a supported audio format', () => {
+        const mediaType = determineResourceType('mp3');
+        expect(mediaType).toEqual('video');
+    });
+
     it('should always return file extension in lowercase', () => {
         const file = {
             name: 'test file.ZIP'

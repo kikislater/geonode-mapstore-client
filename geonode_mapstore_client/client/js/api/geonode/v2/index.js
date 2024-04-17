@@ -12,7 +12,8 @@ import {
     getApiToken,
     paramsSerializer,
     getGeoNodeConfig,
-    getGeoNodeLocalConfig
+    getGeoNodeLocalConfig,
+    API_PRESET
 } from '@js/utils/APIUtils';
 import merge from 'lodash/merge';
 import mergeWith from 'lodash/mergeWith';
@@ -141,7 +142,7 @@ export const getResources = ({
         page,
         page_size: pageSize,
         'filter{metadata_only}': false, // exclude resources such as services
-        include: ['executions']
+        api_preset: API_PRESET.CATALOGS
     };
     return axios.get(parseDevHostname(endpoints[RESOURCES]), {
         params: _params,
@@ -178,7 +179,8 @@ export const getMaps = ({
                     }),
                     ...(sort && { sort: isArray(sort) ? sort : [ sort ]}),
                     page,
-                    page_size: pageSize
+                    page_size: pageSize,
+                    api_preset: API_PRESET.MAPS
                 },
                 paramsSerializer
             })
@@ -213,7 +215,8 @@ export const getDatasets = ({
                     }),
                     ...(sort && { sort: isArray(sort) ? sort : [ sort ]}),
                     page,
-                    page_size: pageSize
+                    page_size: pageSize,
+                    api_preset: API_PRESET.DATASETS
                 },
                 paramsSerializer
             })
@@ -249,7 +252,8 @@ export const getDocumentsByDocType = (docType = 'image', {
                     ...(sort && { sort: isArray(sort) ? sort : [ sort ]}),
                     'filter{subtype}': [docType],
                     page,
-                    page_size: pageSize
+                    page_size: pageSize,
+                    api_preset: API_PRESET.DOCUMENTS
                 },
                 paramsSerializer
             })
@@ -284,7 +288,7 @@ export const setFavoriteResource = (pk, favorite) => {
 export const getResourceByPk = (pk) => {
     return axios.get(parseDevHostname(`${endpoints[RESOURCES]}/${pk}`), {
         params: {
-            include: ['executions']
+            api_preset: API_PRESET.VIEWER_COMMON
         }
     })
         .then(({ data }) => data.resource);
@@ -321,22 +325,29 @@ export const removeLinkedResourcesByPk = (sourcePk, targetPks) => {
 export const getResourceByUuid = (uuid) => {
     return axios.get(parseDevHostname(`${endpoints[RESOURCES]}`), {
         params: {
-            'filter{uuid}': uuid
+            'filter{uuid}': uuid,
+            api_preset: API_PRESET.VIEWER_COMMON
         }
     })
         .then(({ data }) => data?.resources?.[0]);
 };
 
 export const getDatasetByPk = (pk) => {
-    return axios.get(parseDevHostname(`${endpoints[DATASETS]}/${pk}`))
+    return axios.get(parseDevHostname(`${endpoints[DATASETS]}/${pk}`), {
+        params: {
+            api_preset: [API_PRESET.VIEWER_COMMON, API_PRESET.DATASET]
+        },
+        paramsSerializer
+    })
         .then(({ data }) => data.dataset);
 };
 
 export const getDocumentByPk = (pk) => {
     return axios.get(parseDevHostname(`${endpoints[DOCUMENTS]}/${pk}`), {
         params: {
-            include: ['executions']
-        }
+            api_preset: [API_PRESET.VIEWER_COMMON, API_PRESET.DOCUMENT]
+        },
+        paramsSerializer
     })
         .then(({ data }) => data.document);
 };
@@ -346,7 +357,8 @@ export const getDocumentsByPk = (pk) => {
     return axios.get(parseDevHostname(`${endpoints[DOCUMENTS]}/`), {
         params: {
             'filter{pk.in}': pks,
-            page_size: pks.length
+            page_size: pks.length,
+            api_preset: [API_PRESET.VIEWER_COMMON, API_PRESET.DOCUMENT]
         },
         paramsSerializer
     })
@@ -362,11 +374,12 @@ export const createGeoApp = (body) => {
         .then(({ data }) => data.geoapp);
 };
 
-export const getGeoAppByPk = (pk, includes = []) => {
+export const getGeoAppByPk = (pk) => {
     return axios.get(parseDevHostname(`${endpoints[GEOAPPS]}/${pk}`), {
         params: {
             full: true,
-            include: ['data', ...includes]
+            api_preset: API_PRESET.VIEWER_COMMON,
+            include: ['data']
         }
     })
         .then(({ data }) => data.geoapp);
@@ -565,7 +578,12 @@ export const getResourceTypes = () => {
 
 export const getDatasetByName = name => {
     const url = parseDevHostname(`${endpoints[DATASETS]}/?filter{alternate}=${name}`);
-    return axios.get(url)
+    return axios.get(url, {
+        params: {
+            exclude: ['*'],
+            include: ['pk', 'perms', 'alternate']
+        }
+    })
         .then(({data}) => data?.datasets[0]);
 };
 
@@ -574,7 +592,9 @@ export const getDatasetsByName = names => {
     return axios.get(url, {
         params: {
             page_size: names.length,
-            'filter{alternate.in}': names
+            'filter{alternate.in}': names,
+            exclude: ['*'],
+            include: ['pk', 'perms', 'alternate']
         }
     })
         .then(({data}) => data?.datasets);
@@ -635,12 +655,13 @@ export const updateMap = (id, body = {}) => {
 * @param {string[]} includes property to be included in the response
 * @return {promise} it returns an object with the success map object response
 */
-export const getMapByPk = (pk, includes = []) => {
+export const getMapByPk = (pk) => {
     return axios.get(parseDevHostname(`${endpoints[MAPS]}/${pk}/`),
         {
             params: {
-                include: ['data', ...includes]
-            }
+                api_preset: [API_PRESET.VIEWER_COMMON, API_PRESET.MAP]
+            },
+            paramsSerializer
         })
         .then(({ data }) => data?.map);
 };
@@ -650,9 +671,9 @@ export const getMapsByPk = (pk) => {
     return axios.get(parseDevHostname(`${endpoints[MAPS]}/`),
         {
             params: {
-                include: ['data'],
                 'filter{pk.in}': pks,
-                page_size: pks.length
+                page_size: pks.length,
+                api_preset: API_PRESET.MAPS
             },
             paramsSerializer
         })
@@ -664,7 +685,8 @@ export const getFeaturedResources = (page = 1, page_size =  4) => {
         params: {
             page_size,
             page,
-            'filter{featured}': true
+            'filter{featured}': true,
+            api_preset: API_PRESET.CATALOGS
         }
     }).then(({data}) => data);
 };
