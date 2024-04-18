@@ -54,15 +54,14 @@
         "activateMetedataTool": false
       },
       "children": [
-        "TOCItemsSettings",
         "FeatureEditor",
         "FilterLayer",
         "AddGroup",
         "Swipe",
-        "VisualStyleEditor"
+        "VisualStyleEditor",
+        "StyleEditor"
       ],
       "autoEnableChildren": [
-        "TOCItemsSettings",
         "FeatureEditor",
         "FilterLayer",
         "AddGroup",
@@ -71,15 +70,6 @@
       "dependencies": [
         "DrawerMenu",
         "MapLoading"
-      ]
-    },
-    {
-      "name": "TOCItemsSettings",
-      "glyph": "wrench",
-      "title": "plugins.TOCItemsSettings.title",
-      "description": "plugins.TOCItemsSettings.description",
-      "children": [
-        "StyleEditor"
       ]
     },
     {
