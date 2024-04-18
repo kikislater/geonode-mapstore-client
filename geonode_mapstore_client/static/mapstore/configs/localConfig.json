@@ -79,6 +79,10 @@
         {
             "name": "resourceParams",
             "path": "gnresource.params"
+        },
+        {
+            "name": "layers",
+            "path": "layers"
         }
     ],
     "projectionDefs": [],
@@ -2074,7 +2078,18 @@
                 }
             },
             {
-                "name": "LayerSettings"
+                "name": "LayerSettings",
+                "mandatory": true,
+                "cfg": {
+                    "disablePluginIf":"{context.isDatasetLayer(state('layers')) ? false : true}"
+                }
+            },
+            {
+                "name": "TOCItemsSettings",
+                "mandatory": true,
+                "cfg": {
+                    "disablePluginIf":"{context.isDatasetLayer(state('layers')) ? true : false}"
+                }
             },
             {
                 "name": "Widgets"

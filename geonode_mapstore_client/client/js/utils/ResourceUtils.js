@@ -759,3 +759,8 @@ export const getResourceWithLinkedResources = (resource = {}) => {
     }
     return resource;
 };
+
+export const isDatasetLayer = (layersState) => {
+    const layer = layersState?.flat?.find(l => l.id === layersState?.selected?.[0]);
+    return layer?.extendedParams?.pk;
+};

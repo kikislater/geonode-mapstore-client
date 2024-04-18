@@ -160,7 +160,7 @@ function LayerSettingsButton({
     return (
         <Button
             variant="primary"
-            className="square-button-md"
+            className="toc-toolbar-button"
             onClick={handleClick}
             tooltipId={<Message msgId={`toc.toolLayerSettingsTooltip`} />}
         >
