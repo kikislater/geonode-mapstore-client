@@ -88,6 +88,9 @@ export const getFileNameAndExtensionFromUrl = (url) => {
     if (isEmpty(url)) {
         return { fileName, ext };
     }
+    // Decode the URL to handle %20 and other encoded characters
+    const decodedUrl = decodeURIComponent(url);
+
     const parsedName = url?.split('?')?.[0]?.split('#')?.[0]?.split('/')?.pop();
     const period = parsedName?.lastIndexOf('.');
     fileName = period !== -1 ? parsedName.substring(0, period) : parsedName;
