@@ -1,15 +1,15 @@
 # This is a basic workflow to help you get started with Actions
 
-name: GeoNode Client 4.4.x CI (build)
+name: GeoNode Client 4.4.x_moeswmcc CI (build)
 
 concurrency: 
-  group: "client_build_4.4.x"
+  group: "client_build_4.4.x_moeswmcc"
   cancel-in-progress: true
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push events but only for the 4.4.x branch
   push:
-    branches: [ 4.4.x ]
+    branches: [ 4.4.x_moeswmcc ]
     paths: 
       - "VERSION"
       - "geonode_mapstore_client/client/**"
@@ -80,9 +80,9 @@ jobs:
       - name: "Create Pull Request"
         uses: peter-evans/create-pull-request@v3
         with:
-          token: ${{ steps.generate-token.outputs.token }}
-          base: "4.4.x"
-          title: "[4.4.x] new client build"
-          body: "Automated client build from GeoNode Client 4.4.x CI"
-          branch: "4.4.x-create-pull-request/patch"
+          # token: ${{ steps.generate-token.outputs.token }}
+          base: "4.4.x_moeswmcc"
+          title: "[4.4.x_moeswmcc] new client build"
+          body: "Automated client build from GeoNode Client 4.4.x_moeswmcc CI"
+          branch: "4.4.x_moeswmcc-create-pull-request/patch"
 
