@@ -9,7 +9,7 @@ concurrency:
 on:
   # Triggers the workflow on push events but only for the 4.3.x branch
   push:
-    branches: [ 4.3.1_oo ]
+    branches: [ 4.4.x_moeswmcc ]
     paths: 
       - "VERSION"
       - "geonode_mapstore_client/client/**"
@@ -85,6 +85,6 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         with:
           # token: ${{ steps.generate-token.outputs.token }}
-          base: "4.3.1_oo"
+          base: "4.4.x_moeswmcc"
           title: "new client build"
           body: "Automated client build from GeoNode Client CI"
