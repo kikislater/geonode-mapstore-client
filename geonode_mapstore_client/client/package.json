@@ -26,7 +26,7 @@
   "author": "GeoSolutions",
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "@mapstore/project": "git+https://github.com/geosolutions-it/mapstore-project.git#2024.02.xx",
+    "@mapstore/project": "git+https://github.com/geosolutions-it/mapstore-project.git#refs/heads/2024.02.xx",
     "dotenv": "10.0.0",
     "jsdoc": "4.0.0"
   },
