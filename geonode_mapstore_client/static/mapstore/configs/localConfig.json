@@ -1515,7 +1515,7 @@
                 },
                 "defaultCRS": "EPSG:4326"
               }
-            }            
+            },
             {
                 "name": "DownloadResource",
                 "mandatory": true
