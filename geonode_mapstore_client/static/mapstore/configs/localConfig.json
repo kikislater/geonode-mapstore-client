@@ -93,7 +93,14 @@
             "path": "gnresource.selectedLayer"
         }
     ],
-    "projectionDefs": [],
+    "projectionDefs": [{
+      "code": "EPSG:32740",
+      "def": "+proj=utm +zone=40 +south +ellps=WGS84 +datum=WGS84 +units=m +no_defs",
+      "extent": [405450, 7339654, 497450, 7521200],
+      "worldExtent": [57.3, -20.5, 63.6, -19.0]
+    }
+    ],
+    "defaultCoordinateFormat": "decimal",
     "supportedLocales": {
         "en": {
             "code": "en-US",
@@ -354,7 +361,7 @@
                                 "container": "#footer-attribution-container"
                             },
                             "interactions": {
-                                "pinchRotate": false,
+                                "pinchRotate": true,
                                 "altShiftDragRotate": false
                             }
                         }
@@ -860,6 +867,8 @@
                 "cfg": {
                     "tools": [
                         "draw",
+                        "scalebar",
+                        "overview",
                         "box"
                     ],
                     "mapOptions": {
@@ -868,7 +877,7 @@
                                 "container": "#footer-attribution-container"
                             },
                             "interactions": {
-                                "pinchRotate": false,
+                                "pinchRotate": true,
                                 "altShiftDragRotate": false
                             }
                         }
@@ -1207,7 +1216,8 @@
                     "showToggle": true,
                     "filterAllowedCRS": [
                         "EPSG:4326",
-                        "EPSG:3857"
+                        "EPSG:3857",
+                        "EPSG:32740"
                     ],
                     "additionalCRS": {}
                 }
@@ -1269,7 +1279,7 @@
                                 "container": "#footer-attribution-container"
                             },
                             "interactions": {
-                                "pinchRotate": false,
+                                "pinchRotate": true,
                                 "altShiftDragRotate": false
                             }
                         }
@@ -1446,7 +1456,7 @@
                                 "container": "#footer-attribution-container"
                             },
                             "interactions": {
-                                "pinchRotate": false,
+                                "pinchRotate": true,
                                 "altShiftDragRotate": false
                             }
                         }
@@ -1472,6 +1482,8 @@
                 "cfg": {
                     "tools": [
                         "draw",
+                        "scalebar",
+                        "overview",
                         "box"
                     ],
                     "mapOptions": {
@@ -1480,13 +1492,30 @@
                                 "container": "#footer-attribution-container"
                             },
                             "interactions": {
-                                "pinchRotate": false,
+                                "pinchRotate": true,
                                 "altShiftDragRotate": false
                             }
                         }
                     }
                 }
             },
+            {
+              "name": "Undo"
+            },
+            {
+              "name": "Redo"
+            },
+            {
+              "name": "CRSSelector",
+                "cfg": {
+                  "availableCRS": {
+                    "EPSG:4326": "WGS 84",
+                    "EPSG:3857": "Web Mercator",
+                    "EPSG:32740": "UTM zone 40S"
+                },
+                "defaultCRS": "EPSG:4326"
+              }
+            }            
             {
                 "name": "DownloadResource",
                 "mandatory": true
@@ -2119,7 +2148,8 @@
                     "showToggle": true,
                     "filterAllowedCRS": [
                         "EPSG:4326",
-                        "EPSG:3857"
+                        "EPSG:3857",
+                        "EPSG:32740"
                     ],
                     "additionalCRS": {}
                 }
@@ -3338,7 +3368,7 @@
                                 "container": "#footer-attribution-container"
                             },
                             "interactions": {
-                                "pinchRotate": false,
+                                "pinchRotate": true,
                                 "altShiftDragRotate": false
                             }
                         }
@@ -3467,7 +3497,7 @@
                                 "container": "#footer-attribution-container"
                             },
                             "interactions": {
-                                "pinchRotate": false,
+                                "pinchRotate": true,
                                 "altShiftDragRotate": false
                             }
                         }
