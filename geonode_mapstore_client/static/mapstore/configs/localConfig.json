@@ -1507,14 +1507,22 @@
             },
             {
               "name": "CRSSelector",
-                "cfg": {
-                  "availableCRS": {
-                    "EPSG:4326": "WGS 84",
-                    "EPSG:3857": "Web Mercator",
-                    "EPSG:32740": "UTM zone 40S"
+              "cfg": {
+                "additionalCRS": {
+                    "EPSG:32740": {
+                        "label": "UTM Zone 40S",
+                        "definition": "+proj=utm +zone=40 +south +datum=WGS84 +units=m +no_defs"
+                    }
                 },
-                "defaultCRS": "EPSG:4326"
-              }
+                "filterAllowedCRS": [
+                    "EPSG:4326",
+                    "EPSG:3857",
+                    "EPSG:32740"
+                    ],
+                    "allowedRoles": [
+                        "ADMIN", "USER"
+                    ]
+                }
             },
             {
                 "name": "DownloadResource",
