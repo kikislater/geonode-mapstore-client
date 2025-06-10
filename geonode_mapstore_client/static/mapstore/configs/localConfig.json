@@ -1484,6 +1484,8 @@
                         "draw",
                         "scalebar",
                         "overview",
+                        "undo",
+                        "redo",
                         "box"
                     ],
                     "mapOptions": {
