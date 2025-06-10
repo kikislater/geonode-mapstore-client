@@ -1850,6 +1850,12 @@
                 "name": "Expander"
             },
             {
+                "name": "Undo"
+            },
+            {
+                "name": "Redo"
+            },
+            {
                 "name": "MapFooter"
             },
             {
