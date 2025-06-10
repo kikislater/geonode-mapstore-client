@@ -95,9 +95,9 @@
     ],
     "projectionDefs": [{
       "code": "EPSG:32740",
-      "def": "+proj=utm +zone=40 +south +ellps=WGS84 +datum=WGS84 +units=m +no_defs",
-      "extent": [405450, 7339654, 497450, 7521200],
-      "worldExtent": [57.3, -20.5, 63.6, -19.0]
+      "def": "+proj=utm +zone=40 +south +datum=WGS84 +units=m +no_defs",
+            "extent": [-18000000, -9000000, 18000000, 9000000],
+            "worldExtent": [30.0, -90.0, 70.0, 0.0]
     }
     ],
     "defaultCoordinateFormat": "decimal",
@@ -361,7 +361,7 @@
                                 "container": "#footer-attribution-container"
                             },
                             "interactions": {
-                                "pinchRotate": true,
+                                "pinchRotate": false,
                                 "altShiftDragRotate": false
                             }
                         }
@@ -877,7 +877,7 @@
                                 "container": "#footer-attribution-container"
                             },
                             "interactions": {
-                                "pinchRotate": true,
+                                "pinchRotate": false,
                                 "altShiftDragRotate": false
                             }
                         }
@@ -1279,7 +1279,7 @@
                                 "container": "#footer-attribution-container"
                             },
                             "interactions": {
-                                "pinchRotate": true,
+                                "pinchRotate": false,
                                 "altShiftDragRotate": false
                             }
                         }
@@ -1456,7 +1456,7 @@
                                 "container": "#footer-attribution-container"
                             },
                             "interactions": {
-                                "pinchRotate": true,
+                                "pinchRotate": false,
                                 "altShiftDragRotate": false
                             }
                         }
@@ -1492,18 +1492,12 @@
                                 "container": "#footer-attribution-container"
                             },
                             "interactions": {
-                                "pinchRotate": true,
+                                "pinchRotate": false,
                                 "altShiftDragRotate": false
                             }
                         }
                     }
                 }
-            },
-            {
-              "name": "Undo"
-            },
-            {
-              "name": "Redo"
             },
             {
               "name": "CRSSelector",
@@ -1520,7 +1514,7 @@
                     "EPSG:32740"
                     ],
                     "allowedRoles": [
-                        "ADMIN", "USER"
+                        "ALL"
                     ]
                 }
             },
@@ -1854,6 +1848,12 @@
             },
             {
                 "name": "Expander"
+            },
+            {
+                "name": "Undo"
+            },
+            {
+                "name": "Redo"
             },
             {
                 "name": "MapFooter"
@@ -3376,7 +3376,7 @@
                                 "container": "#footer-attribution-container"
                             },
                             "interactions": {
-                                "pinchRotate": true,
+                                "pinchRotate": false,
                                 "altShiftDragRotate": false
                             }
                         }
@@ -3505,7 +3505,7 @@
                                 "container": "#footer-attribution-container"
                             },
                             "interactions": {
-                                "pinchRotate": true,
+                                "pinchRotate": false,
                                 "altShiftDragRotate": false
                             }
                         }
