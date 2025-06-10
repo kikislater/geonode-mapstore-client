@@ -262,6 +262,12 @@
       ]
     },
     {
+      "name": "Tutorial",
+      "glyph": "book",
+      "title": "plugins.Tutorial.title",
+      "description": "plugins.Tutorial.description"
+    },
+    {
       "name": "Measure",
       "glyph": "1-ruler",
       "title": "plugins.Measure.title",
@@ -467,6 +473,22 @@
       "glyph": "option-horizontal",
       "title": "plugins.Expander.title",
       "description": "plugins.Expander.description"
+    },
+    {
+      "name": "Undo",
+      "glyph": "1-screen-backward",
+      "dependencies": [
+        "Toolbar",
+        "Expander"
+      ]
+    },
+    {
+      "name": "Redo",
+      "glyph": "1-screen-forward",
+      "dependencies": [
+        "Toolbar",
+        "Expander"
+      ]
     },
     {
       "name": "FullScreen",
