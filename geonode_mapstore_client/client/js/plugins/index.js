@@ -243,6 +243,10 @@ export const plugins = {
         'Expander',
         () => import(/* webpackChunkName: 'plugins/expander-plugin' */ '@mapstore/framework/plugins/Expander')
     ),
+    HistoryPlugin: toModulePlugin(
+        'History',
+        () => import(/* webpackChunkName: 'plugins/history-plugin' */ '@mapstore/framework/plugins/History')
+    ),
     ScaleBoxPlugin: toModulePlugin(
         'ScaleBox',
         () => import(/* webpackChunkName: 'plugins/scale-box-plugin' */ '@mapstore/framework/plugins/ScaleBox')
