@@ -918,6 +918,22 @@
                 "name": "Expander"
             },
             {
+                "name": "Undo",
+                    "override": {
+                    "Toolbar": {
+                        "alwaysVisible": true
+                    }
+                }
+            },
+            {
+                "name": "Redo",
+                    "override": {
+                    "Toolbar": {
+                        "alwaysVisible": true
+                    }
+                }
+            },          
+            {
                 "name": "MapFooter"
             },
             {
@@ -1850,10 +1866,20 @@
                 "name": "Expander"
             },
             {
-                "name": "Undo"
+                "name": "Undo",
+                    "override": {
+                    "Toolbar": {
+                        "alwaysVisible": true
+                    }
+                }
             },
             {
-                "name": "Redo"
+                "name": "Redo",
+                    "override": {
+                    "Toolbar": {
+                        "alwaysVisible": true
+                    }
+                }
             },
             {
                 "name": "MapFooter"
