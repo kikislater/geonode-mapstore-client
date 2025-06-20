@@ -919,17 +919,21 @@
             },
             {
                 "name": "Undo",
-                    "override": {
-                    "Toolbar": {
-                        "alwaysVisible": true
+                "cfg": {
+                    "glyph": "1-screen-backward",
+                    "buttonStyle": "primary",
+                    "btnConfig": {
+                    "className": "square-button"
                     }
                 }
-            },
+            }, 
             {
                 "name": "Redo",
-                    "override": {
-                    "Toolbar": {
-                        "alwaysVisible": true
+                "cfg": {
+                    "glyph": "1-screen-forward",
+                    "buttonStyle": "primary",
+                    "btnConfig": {
+                    "className": "square-button"
                     }
                 }
             },          
@@ -1867,17 +1871,21 @@
             },
             {
                 "name": "Undo",
-                    "override": {
-                    "Toolbar": {
-                        "alwaysVisible": true
+                "cfg": {
+                    "glyph": "1-screen-backward",
+                    "buttonStyle": "primary",
+                    "btnConfig": {
+                    "className": "square-button"
                     }
                 }
-            },
+            }, 
             {
                 "name": "Redo",
-                    "override": {
-                    "Toolbar": {
-                        "alwaysVisible": true
+                "cfg": {
+                    "glyph": "1-screen-forward",
+                    "buttonStyle": "primary",
+                    "btnConfig": {
+                    "className": "square-button"
                     }
                 }
             },
