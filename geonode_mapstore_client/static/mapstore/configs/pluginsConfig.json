@@ -477,18 +477,12 @@
     {
       "name": "Undo",
       "glyph": "1-screen-backward",
-      "dependencies": [
-        "Toolbar",
-        "Expander"
-      ]
+      "dependencies": ["Toolbar", "Expander"]
     },
     {
       "name": "Redo",
       "glyph": "1-screen-forward",
-      "dependencies": [
-        "Toolbar",
-        "Expander"
-      ]
+      "dependencies": ["Toolbar", "Expander"]
     },
     {
       "name": "FullScreen",
