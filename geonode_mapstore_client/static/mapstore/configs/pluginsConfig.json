@@ -477,15 +477,11 @@
     {
       "name": "Undo",
       "glyph": "1-screen-backward",
-      "title": "plugins.Undo.title",
-      "description": "plugins.Undo.description",
       "dependencies": ["Toolbar", "Expander"]
     },
     {
       "name": "Redo",
       "glyph": "1-screen-forward",
-      "title": "plugins.Redo.title",
-      "description": "plugins.Redo.description",
       "dependencies": ["Toolbar", "Expander"]
     },
     {

@@ -245,7 +245,7 @@ export const plugins = {
     ),
     HistoryPlugin: toModulePlugin(
         'History',
-        () => import(/* webpackChunkName: 'plugins/history-plugin' */ '@mapstore/framework/plugins/History').then(mod => mod.default)
+        () => import(/* webpackChunkName: 'plugins/history-plugin' */ '@mapstore/framework/plugins/History').default
     ),
     ScaleBoxPlugin: toModulePlugin(
         'ScaleBox',
