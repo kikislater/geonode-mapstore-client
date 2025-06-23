@@ -916,13 +916,7 @@
             },
             {
                 "name": "Expander"
-            },
-            {
-                "name": "Undo"
-            }, 
-            {
-                "name": "Redo"
-            },          
+            },         
             {
                 "name": "MapFooter"
             },
@@ -1046,6 +1040,12 @@
                     }
                 }
             },
+            {
+                "name": "Undo"
+            }, 
+            {
+                "name": "Redo"
+            },             
             {
                 "name": "Timeline"
             },
@@ -1856,12 +1856,6 @@
                 "name": "Expander"
             },
             {
-                "name": "Undo"
-            }, 
-            {
-                "name": "Redo"
-            },
-            {
                 "name": "MapFooter"
             },
             {
@@ -1993,6 +1987,22 @@
             },
             {
                 "name": "ZoomOut",
+                "override": {
+                    "Toolbar": {
+                        "alwaysVisible": true
+                    }
+                }
+            },
+            {
+                "name": "Undo",
+                "override": {
+                    "Toolbar": {
+                        "alwaysVisible": true
+                    }
+                }                
+            }, 
+            {
+                "name": "Redo",
                 "override": {
                     "Toolbar": {
                         "alwaysVisible": true
