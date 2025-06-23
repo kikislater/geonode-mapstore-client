@@ -918,24 +918,10 @@
                 "name": "Expander"
             },
             {
-                "name": "Undo",
-                "cfg": {
-                    "glyph": "1-screen-backward",
-                    "buttonStyle": "primary",
-                    "btnConfig": {
-                    "className": "square-button"
-                    }
-                }
+                "name": "Undo"
             }, 
             {
-                "name": "Redo",
-                "cfg": {
-                    "glyph": "1-screen-forward",
-                    "buttonStyle": "primary",
-                    "btnConfig": {
-                    "className": "square-button"
-                    }
-                }
+                "name": "Redo"
             },          
             {
                 "name": "MapFooter"
