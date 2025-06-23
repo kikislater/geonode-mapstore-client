@@ -1994,21 +1994,11 @@
                 }
             },
             {
-                "name": "Undo",
-                "override": {
-                    "Toolbar": {
-                        "alwaysVisible": true
-                    }
-                }                
+                "name": "Undo"
             }, 
             {
-                "name": "Redo",
-                "override": {
-                    "Toolbar": {
-                        "alwaysVisible": true
-                    }
-                }
-            },
+                "name": "Redo"
+            }, 
             {
                 "name": "Timeline"
             },
