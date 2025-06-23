@@ -243,10 +243,6 @@ export const plugins = {
         'Expander',
         () => import(/* webpackChunkName: 'plugins/expander-plugin' */ '@mapstore/framework/plugins/Expander')
     ),
-    HistoryPlugin: toModulePlugin(
-        'History',
-        () => import(/* webpackChunkName: 'plugins/history-plugin' */ '@mapstore/framework/plugins/History').default
-    ),
     ScaleBoxPlugin: toModulePlugin(
         'ScaleBox',
         () => import(/* webpackChunkName: 'plugins/scale-box-plugin' */ '@mapstore/framework/plugins/ScaleBox')
@@ -467,7 +463,15 @@ export const plugins = {
     PrintCopyrightPlugin: toModulePlugin(
         'PrintCopyright',
         () => import(/* webpackChunkName: 'plugins/print-copyright' */ '@js/plugins/Print/Copyright')
-    )
+    ),
+    RedoPlugin: toModulePlugin(
+        'Redo', 
+        () => import(/* webpackChunkName: 'plugins/history' */ '@mapstore/framework/plugins/History')
+    ),
+    UndoPlugin: toModulePlugin(
+        'Undo', 
+        () => import(/* webpackChunkName: 'plugins/history' */ '@mapstore/framework/plugins/History')
+    )    
 };
 
 const pluginsDefinition = {
