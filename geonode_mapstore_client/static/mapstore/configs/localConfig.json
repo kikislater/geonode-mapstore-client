@@ -96,8 +96,8 @@
     "projectionDefs": [{
       "code": "EPSG:32740",
       "def": "+proj=utm +zone=40 +south +datum=WGS84 +units=m +no_defs",
-            "extent": [-18000000, -9000000, 18000000, 9000000],
-            "worldExtent": [30.0, -90.0, 70.0, 0.0]
+            "extent": [166021.44, 1116915.04, 833978.56, 10000000.0],
+            "worldExtent": [54.0, -80.0, 60.0, 0.0 ]
     }
     ],
     "defaultCoordinateFormat": "decimal",
